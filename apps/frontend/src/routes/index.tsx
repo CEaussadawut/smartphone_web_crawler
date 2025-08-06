@@ -13,11 +13,11 @@ function Index() {
           <h1 className="text-5xl">Find your phone at CEDT Phone</h1>
           <div className="flex gap-4">
             <input className="border w-full" type="text" />
-            <Link to="/note">search</Link>
+            <Link to="/about">search</Link>
           </div>
         </div>
         <video className="w-full h-full -z-10" autoPlay loop muted playsInline>
-          <source src="/medium_2x.mp4" type="video/mp4" />
+          <source className="h-24" src="/medium_2x.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </section>
