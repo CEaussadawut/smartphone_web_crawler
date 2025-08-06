@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
@@ -12,8 +14,10 @@ function Index() {
         <div className="absolute top-1/2 left-1/2 -translate-1/2 text-white z-10 flex flex-col gap-4">
           <h1 className="text-5xl">Find your phone at CEDT Phone</h1>
           <div className="flex gap-4">
-            <input className="border w-full" type="text" />
-            <Link to="/about">search</Link>
+            <Input type="text" placeholder="Email" />
+            <Link to="/about">
+              <Button>search</Button>
+            </Link>
           </div>
         </div>
         <video className="w-full h-full -z-10" autoPlay loop muted playsInline>
