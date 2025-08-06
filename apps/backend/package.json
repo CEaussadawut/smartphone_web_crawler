@@ -1,0 +1,8 @@
+{
+  "name": "api",
+  "private": true,
+  "scripts": {
+    "dev": "venv/bin/python -m pip install -r requirements.txt && venv/bin/python -m uvicorn src.main:app --reload",
+    "test": "fastapi dev main.py"
+  }
+}
