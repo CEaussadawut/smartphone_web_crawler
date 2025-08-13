@@ -1,12 +1,39 @@
+import LoadingComponent from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   component: Index
 });
 
+type Brand = {
+  name: string;
+  link: string;
+};
+
+type ApiResponse = {
+  data: Brand[];
+};
+
 function Index() {
+  const { isPending, error, data } = useQuery<ApiResponse>({
+    queryKey: [],
+    queryFn: async () => {
+      const response = await fetch("http://localhost:8000/process");
+      return await response.json();
+    }
+  });
+
+  if (isPending) return <LoadingComponent />;
+
+  if (error) return "An error has occurred: " + error.message;
+
+  const brands = data.data;
+
+  console.log(brands);
+
   return (
     <main className="bg-black">
       <section className="relative w-full max-h-screen ">
@@ -20,10 +47,29 @@ function Index() {
             </Link>
           </div>
         </div>
-        <video className="w-full h-full -z-10" autoPlay loop muted playsInline>
-          <source className="h-24" src="/medium_2x.mp4" type="video/mp4" />
+        <video
+          className="w-full h-screen -z-10 object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="/medium_2x.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
+      </section>
+
+      <section className="container mx-auto p-8 text-white">
+        <h1 className="text-xl">ALL Brand Phone</h1>
+        <ul className="grid grid-cols-5">
+          {brands.map((brand, index) => (
+            <li key={index} className="hover:text-red-300">
+              <a href={brand.link} target="_blank">
+                {brand.name}
+              </a>
+            </li>
+          ))}
+        </ul>
       </section>
     </main>
   );

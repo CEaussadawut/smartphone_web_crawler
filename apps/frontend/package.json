@@ -14,6 +14,8 @@
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/vite": "^4.1.11",
+    "@tanstack/react-query": "^5.85.0",
+    "@tanstack/react-query-devtools": "^5.85.0",
     "@tanstack/react-router": "^1.130.12",
     "@tanstack/react-router-devtools": "^1.130.13",
     "class-variance-authority": "^0.7.1",
@@ -26,6 +28,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
+    "@tanstack/eslint-plugin-query": "^5.83.1",
     "@tanstack/router-cli": "^1.130.15",
     "@tanstack/router-plugin": "^1.130.15",
     "@types/node": "^24.2.0",

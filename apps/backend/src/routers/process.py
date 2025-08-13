@@ -1,8 +1,16 @@
+import re
+import os
+import requests
 from fastapi import APIRouter, status
+from fake_useragent import UserAgent
 
 from ..packages import regex
 
 router = APIRouter(prefix="/process", tags=["process"])
+
+cache = {}
+
+regex_package = regex.Regex()
 
 @router.get(
     "/",
@@ -12,9 +20,45 @@ router = APIRouter(prefix="/process", tags=["process"])
     status_code=status.HTTP_200_OK,
 )
 async def process():
-    return {"message": "Ok"} 
+    if "home_page" in cache:
+        print("From cache")
+        return {"data": cache["brands"]} 
+    
+    ua = UserAgent()
+    
+    headers = {
+        "User-Agent": ua.random,
+        "Accept-Language": "en-US,en;q=0.9",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+    }
 
-test = regex.Regex()
+    res = requests.get(url=f"{os.getenv("CRAWLER_ENDPOINT")}/makers.php3", headers=headers)
+    
+    if res.status_code != 200:
+        print("Error code: ", res.status_code)
+        return {"message": "error"} 
+    
+    raw_html = res.text
+
+    html = raw_html.encode().decode('unicode_escape')
+
+    pattern = regex_package.whyzotee_pattern()
+    matches = re.findall(pattern, html, flags=re.DOTALL | re.IGNORECASE)
+
+    brands = []
+    for href, name in matches:
+        clean_name = re.sub(r'<.*?>', '', name).strip()
+        if href.endswith(".php") and "-phones-" in href and clean_name:
+            brands.append({
+                "name": clean_name,
+                "link": f"https://www.gsmarena.com/{href}"
+            })
+
+    cache["brands"] = brands
+
+    return {"data": brands}
+
+
 
 @router.get(
     "/images",
@@ -24,5 +68,5 @@ test = regex.Regex()
     status_code=status.HTTP_200_OK,
 )
 async def process():
-    res = test.test()
+    res = regex_package.test()
     return res
