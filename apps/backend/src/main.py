@@ -1,9 +1,8 @@
-from .routers import process
+from src.routers import process
 
-from fastapi import FastAPI # type: ignore
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-import os
 from os.path import join, dirname, abspath
 from dotenv import load_dotenv
 

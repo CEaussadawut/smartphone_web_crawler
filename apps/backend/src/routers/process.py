@@ -1,10 +1,10 @@
 import re
 import os
 import requests
-from fastapi import APIRouter, status
+from fastapi import APIRouter, HTTPException, status
 from fake_useragent import UserAgent
 
-from ..packages import regex
+from src.packages import regex
 
 router = APIRouter(prefix="/process", tags=["process"])
 
@@ -20,6 +20,28 @@ regex_package = regex.Regex()
     status_code=status.HTTP_200_OK,
 )
 async def process():
+    return {"data": "ok"}
+
+@router.get(
+    "/images",
+    name="api for process",
+    description="",
+    include_in_schema=False,
+    status_code=status.HTTP_200_OK,
+)
+async def image():
+    res = regex_package.test()
+    return res
+
+
+@router.get(
+    "/get_brands",
+    name="api for process",
+    description="",
+    include_in_schema=False,
+    status_code=status.HTTP_200_OK,
+)
+async def get_brands():
     if "home_page" in cache:
         print("From cache")
         return {"data": cache["brands"]} 
@@ -36,7 +58,11 @@ async def process():
     
     if res.status_code != 200:
         print("Error code: ", res.status_code)
-        return {"message": "error"} 
+        
+        raise HTTPException(
+            status_code=res.status_code,
+            detail=f"Failed to fetch data from crawler: {res.status_code}"
+        )
     
     raw_html = res.text
 
@@ -46,6 +72,7 @@ async def process():
     matches = re.findall(pattern, html, flags=re.DOTALL | re.IGNORECASE)
 
     brands = []
+    
     for href, name in matches:
         clean_name = re.sub(r'<.*?>', '', name).strip()
         if href.endswith(".php") and "-phones-" in href and clean_name:
@@ -57,16 +84,3 @@ async def process():
     cache["brands"] = brands
 
     return {"data": brands}
-
-
-
-@router.get(
-    "/images",
-    name="api for process",
-    description="",
-    include_in_schema=False,
-    status_code=status.HTTP_200_OK,
-)
-async def process():
-    res = regex_package.test()
-    return res

@@ -21,7 +21,13 @@ function Index() {
   const { isPending, error, data } = useQuery<ApiResponse>({
     queryKey: [],
     queryFn: async () => {
-      const response = await fetch("http://localhost:8000/process");
+      const response = await fetch("http://localhost:8000/process/get_brands");
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || "Unknown error");
+      }
+
       return await response.json();
     }
   });
@@ -29,10 +35,6 @@ function Index() {
   if (isPending) return <LoadingComponent />;
 
   if (error) return "An error has occurred: " + error.message;
-
-  const brands = data.data;
-
-  console.log(brands);
 
   return (
     <main className="bg-black">
@@ -62,7 +64,7 @@ function Index() {
       <section className="container mx-auto p-8 text-white">
         <h1 className="text-xl">ALL Brand Phone</h1>
         <ul className="grid grid-cols-5">
-          {brands.map((brand, index) => (
+          {data.data.map((brand, index) => (
             <li key={index} className="hover:text-red-300">
               <a href={brand.link} target="_blank">
                 {brand.name}
