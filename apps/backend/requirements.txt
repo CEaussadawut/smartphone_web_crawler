@@ -2,4 +2,3 @@ uvicorn[standard]==0.35.0
 fastapi[standard]==0.116.1
 requests==2.32.4
 fake-useragent==2.2.0
-python-dotenv==1.1.1
