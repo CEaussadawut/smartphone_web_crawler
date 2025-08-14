@@ -3,6 +3,7 @@
   "files.exclude": {
     "**/__pycache__": true,
     "**/node_modules": true,
-    "**/.tanstack": true
+    "**/.tanstack": true,
+    "**/.turbo": true
   }
 }
