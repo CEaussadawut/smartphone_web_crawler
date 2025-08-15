@@ -3,6 +3,7 @@
 TOC project eiei
 
 ## Requirement
+
 Bun >= 1.1.0
 
 Python >= 3.10
@@ -14,11 +15,13 @@ Python >= 3.10
 ez โคตรรรร ทำตามนี้
 
 สร้าง python environment ขึ้นมา
+
 ```py
 python -m venv apps/backend/venv
 ```
 
 แก้ path venv
+
 ```py
 mv apps/backend/venv/Scripts apps/backend/venv/bin
 ```
@@ -28,6 +31,13 @@ mv apps/backend/venv/Scripts apps/backend/venv/bin
 ```js
 bun install
 bun run dev
+```
+
+> เมื่อแก้ไช backend เสร็จให้พิมพ์คำสั่งตามนี้
+> เพื่อให้ generate helper สำหรับ query จาก backend ได้
+
+```sh
+cd apps/frontend && bun run openapi-ts
 ```
 
 ปล. package ทั้งหมดจะลงไว้ใน folder โปรเจคนี้ ไม่ต้องห่วง backdoor เพราะโดนอยู่แล้ว (หยอก)

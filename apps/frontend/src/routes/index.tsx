@@ -1,11 +1,12 @@
-import LoadingComponent from "@/components/loading";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
+import LoadingComponent from "@/components/loading";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
 export const Route = createFileRoute("/")({
-  component: Index
+  component: Index,
 });
 
 type Brand = {
@@ -25,7 +26,7 @@ function Index() {
       }
 
       return await response.json();
-    }
+    },
   });
 
   if (isPending) return <LoadingComponent />;

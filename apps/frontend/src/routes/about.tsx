@@ -1,20 +1,38 @@
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
+
+import { brandsPhoneBrandsGetOptions } from "@/client/@tanstack/react-query.gen";
 
 export const Route = createFileRoute("/about")({
-  component: About
+  component: About,
 });
 
 function About() {
-  const test_fetch = async () => {
-    const res = await fetch("http://localhost:8000/process");
-    const json = await res.json();
-    console.log(json);
-  };
+  const phoneBrandsQuery = useSuspenseQuery(brandsPhoneBrandsGetOptions());
+  const phoneBrands = phoneBrandsQuery.data;
 
-  useEffect(() => {
-    test_fetch();
-  });
+  // lao
+  // const test_fetch = async () => {
+  //   const res = await fetch("http://localhost:8000/process");
+  //   const json = await res.json();
+  //   console.log(json);
+  // };
 
-  return <div className="p-2">Hello from About!</div>;
+  // useEffect(() => {
+  //   test_fetch();
+  // });
+
+  return (
+    <div className="p-2">
+      <ol>
+        {phoneBrands.map((brand, i) => (
+          <li key={i}>
+            <a href={brand.href} target="__blank">
+              {brand.name}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
 }
