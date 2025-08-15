@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export const Route = createFileRoute("/")({
-  component: Index,
+  component: Index
 });
 
 type Brand = {
@@ -18,7 +18,7 @@ function Index() {
   const { isPending, error, data } = useQuery<Brand[]>({
     queryKey: [],
     queryFn: async () => {
-      const response = await fetch("http://localhost:8000/phone/get_brands");
+      const response = await fetch("http://localhost:8000/phone/brands");
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -26,7 +26,7 @@ function Index() {
       }
 
       return await response.json();
-    },
+    }
   });
 
   if (isPending) return <LoadingComponent />;
