@@ -1,0 +1,14 @@
+{
+  "python.defaultInterpreterPath": "apps/backend/venv/bin/python",
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/node_modules": true,
+    "**/.tanstack": true,
+    "**/.turbo": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
