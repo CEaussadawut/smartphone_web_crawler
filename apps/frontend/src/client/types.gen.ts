@@ -14,22 +14,113 @@ export type Brands = {
     href: string;
 };
 
-export type BrandsPhoneBrandsGetData = {
+/**
+ * HTTPValidationError
+ */
+export type HttpValidationError = {
+    /**
+     * Detail
+     */
+    detail?: Array<ValidationError>;
+};
+
+/**
+ * PhonePreview
+ */
+export type PhonePreview = {
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Img
+     */
+    img: string;
+    /**
+     * Href
+     */
+    href: string;
+};
+
+/**
+ * ValidationError
+ */
+export type ValidationError = {
+    /**
+     * Location
+     */
+    loc: Array<string | number>;
+    /**
+     * Message
+     */
+    msg: string;
+    /**
+     * Error Type
+     */
+    type: string;
+};
+
+export type BrandsApiBrandsGetData = {
     body?: never;
     path?: never;
     query?: never;
-    url: '/phone/brands';
+    url: '/api/brands';
 };
 
-export type BrandsPhoneBrandsGetResponses = {
+export type BrandsApiBrandsGetResponses = {
     /**
-     * Response Brands Phone Brands Get
+     * Response Brands Api Brands Get
      * Successful Response
      */
     200: Array<Brands>;
 };
 
-export type BrandsPhoneBrandsGetResponse = BrandsPhoneBrandsGetResponses[keyof BrandsPhoneBrandsGetResponses];
+export type BrandsApiBrandsGetResponse = BrandsApiBrandsGetResponses[keyof BrandsApiBrandsGetResponses];
+
+export type GetPhoneBrandApiBrandGetData = {
+    body?: never;
+    path: {
+        /**
+         * Brand
+         */
+        brand: string;
+    };
+    query?: never;
+    url: '/api/{brand}';
+};
+
+export type GetPhoneBrandApiBrandGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetPhoneBrandApiBrandGetError = GetPhoneBrandApiBrandGetErrors[keyof GetPhoneBrandApiBrandGetErrors];
+
+export type GetPhoneBrandApiBrandGetResponses = {
+    /**
+     * Response Get Phone Brand Api  Brand  Get
+     * Successful Response
+     */
+    200: Array<PhonePreview>;
+};
+
+export type GetPhoneBrandApiBrandGetResponse = GetPhoneBrandApiBrandGetResponses[keyof GetPhoneBrandApiBrandGetResponses];
+
+export type ParserApiParserGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/parser';
+};
+
+export type ParserApiParserGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};
 
 export type ReadRootGetData = {
     body?: never;

@@ -1,7 +1,11 @@
-from src.config.config import PROJECT_NAME, VERSION, CRAWLER_ENDPOINT
+from src.config.config import PROJECT_NAME, VERSION
+from src.config.crawler import CRAWLER_ENDPOINT, CRAWLER_MOBILE_ENDPOINT, CRAWLER_HEADERS
+
 
 __all__ = [
     "PROJECT_NAME",
     "VERSION",
-    "CRAWLER_ENDPOINT"
+    "CRAWLER_ENDPOINT",
+    "CRAWLER_MOBILE_ENDPOINT",
+    "CRAWLER_HEADERS"
 ]

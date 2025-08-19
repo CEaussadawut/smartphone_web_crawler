@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.api import (phone_router)
+from src.api import (brands_router, device_router, parser_router)
 from src.config.config import PROJECT_NAME, VERSION
 
 app = FastAPI(title=PROJECT_NAME, version=VERSION)
@@ -14,7 +14,9 @@ app.add_middleware(
     allow_credentials=True,
 )
 
-app.include_router(phone_router,  prefix="/phone", tags=["phone"])
+app.include_router(brands_router, tags=["brands"])
+app.include_router(device_router, tags=["device"])
+app.include_router(parser_router, tags=["parser"])
 
 @app.get("/")
 def read_root():

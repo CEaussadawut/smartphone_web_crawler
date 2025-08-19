@@ -1,6 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
+import { brandsApiBrandsGetOptions } from "@/client/@tanstack/react-query.gen";
 import LoadingComponent from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,29 +10,16 @@ export const Route = createFileRoute("/")({
   component: Index
 });
 
-type Brand = {
-  name: string;
-  link: string;
-};
-
 function Index() {
-  const { isPending, error, data } = useQuery<Brand[]>({
-    queryKey: [],
-    queryFn: async () => {
-      const response = await fetch("http://localhost:8000/phone/brands");
+  const phoneBrandsQuery = useSuspenseQuery(brandsApiBrandsGetOptions());
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || "Unknown error");
-      }
+  if (phoneBrandsQuery.isLoading) return <LoadingComponent />;
 
-      return await response.json();
-    }
-  });
+  if (phoneBrandsQuery.error) {
+    return `An error has occurred: ${phoneBrandsQuery.error.message}`;
+  }
 
-  if (isPending) return <LoadingComponent />;
-
-  if (error) return "An error has occurred: " + error.message;
+  const brands = phoneBrandsQuery.data;
 
   return (
     <main className="bg-black">
@@ -61,11 +49,11 @@ function Index() {
       <section className="container mx-auto p-8 text-white">
         <h1 className="text-xl">ALL Brand Phone</h1>
         <ul className="grid grid-cols-5">
-          {data.map((brand, index) => (
+          {brands.map((brand, index) => (
             <li key={index} className="hover:text-red-300">
-              <a href={brand.link} target="_blank">
+              <Link to="/device/$brand" params={{ brand: brand.href }}>
                 {brand.name}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

@@ -1,14 +1,14 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
-import { brandsPhoneBrandsGetOptions } from "@/client/@tanstack/react-query.gen";
+import { brandsPhoneApiBrandsGetOptions } from "@/client/@tanstack/react-query.gen";
 
 export const Route = createFileRoute("/about")({
-  component: About,
+  component: About
 });
 
 function About() {
-  const phoneBrandsQuery = useSuspenseQuery(brandsPhoneBrandsGetOptions());
+  const phoneBrandsQuery = useSuspenseQuery(brandsPhoneApiBrandsGetOptions());
   const phoneBrands = phoneBrandsQuery.data;
 
   // lao

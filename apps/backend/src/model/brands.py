@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 
 
-class PhonePreview(BaseModel):
+class Brands(BaseModel):
     name: str
-    img: str
     href: str
