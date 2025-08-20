@@ -1,5 +1,13 @@
 from pydantic import BaseModel
 
+class Network(BaseModel):
+    tecnology : str
+    twoG : str
+    threeG : str
+    fourG : str
+    fiveG : str
+    speed : str
+
 class Launch(BaseModel):
     announced: str
     status: str
@@ -76,7 +84,7 @@ class EuLabel(BaseModel):
 class SpecPhone(BaseModel):
     name: str
     img: str
-    network: str  
+    network: Network  
     launch: Launch
     body : Body
     display : Display
