@@ -13,3 +13,5 @@ class Pattern:
     FINDING_PLATFORM_CHIPSET = r'<td\b[^>]*\bdata-spec\s*=\s*["]chipset["][^>]*>(.*?)<\/td>'
     FINDING_PLATFORM_CPU = r'<td\b[^>]*\bdata-spec\s*=\s*["]cpu["][^>]*>(.*?)<\/td>'
     FINDING_PLATFORM__GPU = r'<td\b[^>]*\bdata-spec\s*=\s*["]gpu["][^>]*>(.*?)<\/td>'
+
+    FINDING_TABLE_HEAD = r'<th[^>]*rowspan="[^"]*"[^>]*scope="row"[^>]*>(.*?)</th>'
