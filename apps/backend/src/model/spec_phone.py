@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Dict
+from typing import Dict, Optional
 
 class SpecPhone(BaseModel):
     name: str
@@ -17,3 +17,6 @@ class SpecPhone(BaseModel):
     features: Dict[str, str] = {}
     battery: Dict[str, str] = {}
     misc: Dict[str, str] = {}
+    our_test: Dict[str, str] = {}
+    eu_label: Dict[str, str] = {}
+    
