@@ -3,5 +3,6 @@ from src.model.phone import PhonePreview
 
 __all__ = [
     "Brands",
-    "PhonePreview"
+    "PhonePreview",
+    "SpecPhone"
 ]
