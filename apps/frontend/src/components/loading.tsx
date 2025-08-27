@@ -1,6 +1,6 @@
 const LoadingComponent = () => {
   return (
-    <main className="h-screen w-full bg-white flex justify-center items-center">
+    <main className="h-screen w-full bg-white flex justify-center items-center z-50">
       <img
         src="https://media.tenor.com/sbfBfp3FeY8AAAAj/oia-uia.gif"
         alt="oia-uia"
