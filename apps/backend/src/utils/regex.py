@@ -16,7 +16,7 @@ class Regex:
     # flags: options ของ lib re
     # cache: ใช้ข้อมูลจาก cache ไหม true / false
     
-    def find(self, pattern: Pattern, url_path: str, mobile=False, flags: int | re.RegexFlag=0, cache=True) -> list[Any]:
+    def find(self, pattern: Pattern, url_path: str, mobile=True, cache=True) -> list[Any]:
 
         # หากเจอใน cache ให้เอาจาก cache ไป
         if (cache and url_path in self.__cache):
@@ -34,12 +34,16 @@ class Regex:
 
         # แปลงให้ parse หรือจับ pattern ง่ายๆ
         raw_html = response.text
-        html = raw_html.encode().decode("unicode_escape")
 
         # print(html)
         # ให้ regex หาตาม pattern ที่เราเขียน
-        matches = re.findall(pattern, html, flags=flags)
+        matches = re.findall(pattern, raw_html, flags=re.DOTALL | re.IGNORECASE)
 
+        if len(matches) == 0:
+            print("Empty data raw html:", raw_html)
+
+            return []
+        
         # เก็บลง cache
         self.__cache[url_path] = matches
         

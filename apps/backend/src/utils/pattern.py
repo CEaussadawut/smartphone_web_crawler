@@ -4,3 +4,4 @@ class Pattern:
     FINDING_TABLE_HEAD = r'<th[^>]*rowspan="[^"]*"[^>]*scope="row"[^>]*>(.*?)</th>'
     FINDING_TABLE_TTL = r'<td[^>]*class="ttl"[^>]*><a[^>]*>(.*?)</a></td>'
     FINDING_TABLE_NFO = r'<td[^>]*class=["\'][^"\']*\bnfo\b[^"\']*["\'][^>]*>([\s\S]*?)</td>'
+    FINDING_ALL_PHONE_BRAND = r'<li>\s*<a href="([^"]*\.php)">\s*<img src="([^"]*\.(?:jpe?g|png|webp|gif))"[^>]*>\s*(.*?)</a>\s*</li>'
