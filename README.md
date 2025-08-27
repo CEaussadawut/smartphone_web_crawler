@@ -1,5 +1,8 @@
 # CEDT Phone
 
+![screen1](https://github.com/user-attachments/assets/4b53a336-269b-4173-9f67-4b678f6a15e5)
+![screen2](https://github.com/user-attachments/assets/7d56d4f1-14dc-474d-9309-713faa295785)
+
 TOC project eiei
 
 ## Requirement
@@ -14,16 +17,13 @@ Python >= 3.10
 
 ez โคตรรรร ทำตามนี้
 
-สร้าง python environment ขึ้นมา ณ root path ของ project
-
+### 1. สร้าง python environment ขึ้นมา ณ root path ของ project
 เปิด code editor แล้ว new terminal ขึ้นมา แล้วพิม
 
 ```py
 python -m venv apps/backend/venv
 ```
-
-สร้าง symlink folder เพื่อให้ path ตรงกับ script ที่ตั้งไว้
-
+### 2. สร้าง symlink folder เพื่อให้ path ตรงกับ script ที่ตั้งไว้ (หากใช้ linux ข้ามขั้นตอนนี้ได้เลอ)
 ณ root path ของ project **(ใช้ command prompt ด้วยสิทธิ์ admin เท่านั้น!!!)**
 
 command prompt run as admin แล้วไปที่ root path ของโปรเจค จากนั้นพิม
@@ -31,8 +31,8 @@ command prompt run as admin แล้วไปที่ root path ของโ�
 ```py
 cd apps/backend/venv && mklink /d bin Scripts
 ```
-
-จากวันนั้น (จากนั้น) ปิด command prompt กลับไปที่ code editor
+### 3. รันเลยย
+ปิด command prompt กลับไปที่ code editor จากนั้นพิม
 
 ```js
 bun install
