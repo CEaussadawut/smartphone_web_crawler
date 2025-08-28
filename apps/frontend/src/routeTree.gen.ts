@@ -11,7 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DeviceBrandRouteImport } from './routes/device.$brand'
+import { Route as DeviceBrandSlugRouteImport } from './routes/device/$brandSlug'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -23,40 +23,40 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DeviceBrandRoute = DeviceBrandRouteImport.update({
-  id: '/device/$brand',
-  path: '/device/$brand',
+const DeviceBrandSlugRoute = DeviceBrandSlugRouteImport.update({
+  id: '/device/$brandSlug',
+  path: '/device/$brandSlug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/device/$brand': typeof DeviceBrandRoute
+  '/device/$brandSlug': typeof DeviceBrandSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/device/$brand': typeof DeviceBrandRoute
+  '/device/$brandSlug': typeof DeviceBrandSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/device/$brand': typeof DeviceBrandRoute
+  '/device/$brandSlug': typeof DeviceBrandSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/device/$brand'
+  fullPaths: '/' | '/about' | '/device/$brandSlug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/device/$brand'
-  id: '__root__' | '/' | '/about' | '/device/$brand'
+  to: '/' | '/about' | '/device/$brandSlug'
+  id: '__root__' | '/' | '/about' | '/device/$brandSlug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  DeviceBrandRoute: typeof DeviceBrandRoute
+  DeviceBrandSlugRoute: typeof DeviceBrandSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,11 +75,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/device/$brand': {
-      id: '/device/$brand'
-      path: '/device/$brand'
-      fullPath: '/device/$brand'
-      preLoaderRoute: typeof DeviceBrandRouteImport
+    '/device/$brandSlug': {
+      id: '/device/$brandSlug'
+      path: '/device/$brandSlug'
+      fullPath: '/device/$brandSlug'
+      preLoaderRoute: typeof DeviceBrandSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -88,7 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  DeviceBrandRoute: DeviceBrandRoute,
+  DeviceBrandSlugRoute: DeviceBrandSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

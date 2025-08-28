@@ -64,7 +64,7 @@ function RouteComponent() {
         <ul className="grid grid-cols-5  gap-2">
           {brands.map((brand, index) => (
             <li key={index} className="hover:text-orange-500">
-              <Link to="/device/$brand" params={{ brand: brand.href }}>
+              <Link to="/device/$brandSlug" params={{ brandSlug: brand.href }}>
                 {brand.name}
               </Link>
             </li>
