@@ -1,6 +1,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
+
 import { lazy, Suspense } from "react";
 
 import { getPhoneBrandApiBrandGetOptions } from "@/client/@tanstack/react-query.gen";
@@ -43,6 +44,7 @@ function RouteComponent() {
       >
         Brand: {getBrandName(brandSlug, { isCapitalize: true })}
       </motion.h1>
+
       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 auto-rows-fr">
         {phones.map((phone, i) => (
           <Suspense
