@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <footer className="flex justify-center p-4">
-      CEDTPhone, © 2025 all rights reserved.
+      CEDT Phone, © 2025 all rights reserved.
     </footer>
   );
 };

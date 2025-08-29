@@ -18,6 +18,9 @@ const Navbar = () => {
         <Link to="/about" className="underline">
           About
         </Link>
+        <Link to="/export" className="underline">
+          Export CSV
+        </Link>
       </div>
 
       <div className="ml-auto">

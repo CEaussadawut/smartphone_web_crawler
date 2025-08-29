@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ExportRouteImport } from './routes/export'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DeviceBrandSlugRouteImport } from './routes/device/$brandSlug'
 
+const ExportRoute = ExportRouteImport.update({
+  id: '/export',
+  path: '/export',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -32,35 +38,46 @@ const DeviceBrandSlugRoute = DeviceBrandSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/export': typeof ExportRoute
   '/device/$brandSlug': typeof DeviceBrandSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/export': typeof ExportRoute
   '/device/$brandSlug': typeof DeviceBrandSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/export': typeof ExportRoute
   '/device/$brandSlug': typeof DeviceBrandSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/device/$brandSlug'
+  fullPaths: '/' | '/about' | '/export' | '/device/$brandSlug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/device/$brandSlug'
-  id: '__root__' | '/' | '/about' | '/device/$brandSlug'
+  to: '/' | '/about' | '/export' | '/device/$brandSlug'
+  id: '__root__' | '/' | '/about' | '/export' | '/device/$brandSlug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ExportRoute: typeof ExportRoute
   DeviceBrandSlugRoute: typeof DeviceBrandSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/export': {
+      id: '/export'
+      path: '/export'
+      fullPath: '/export'
+      preLoaderRoute: typeof ExportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ExportRoute: ExportRoute,
   DeviceBrandSlugRoute: DeviceBrandSlugRoute,
 }
 export const routeTree = rootRouteImport
