@@ -19,35 +19,33 @@ class Regex:
     def find(self, pattern: Pattern, url_path: str, mobile=True, cache=True) -> list[Any]:
 
         # หากเจอใน cache ให้เอาจาก cache ไป
-        if (cache and url_path in self.__cache):
-            print("From Cache")
-            return self.__cache[url_path]
+        if (not cache or (url_path not in self.__cache)):
+            # get raw html
+            response = requests.get(url=f"{CRAWLER_MOBILE_ENDPOINT if mobile else CRAWLER_ENDPOINT}/{url_path}", headers=CRAWLER_HEADERS)
 
-        # get raw html
-        response = requests.get(url=f"{CRAWLER_MOBILE_ENDPOINT if mobile else CRAWLER_ENDPOINT}/{url_path}", headers=CRAWLER_HEADERS)
+            # Error handling
+            if response.status_code != 200:
+                print(f"Failed to get path {url_path} with status code: {response.status_code}")
 
-        # Error handling
-        if response.status_code != 200:
-            print(f"Failed to get path {url_path} with status code: {response.status_code}")
+                raise Exception(f"Failed to get path {url_path} with status code: {response.status_code}")     
 
-            raise Exception(f"Failed to get path {url_path} with status code: {response.status_code}")            
+            # เก็บ raw html ลง cache
+            self.__cache[url_path] = response.text
+        else:
+            print("Use html from Cache")
 
-        # แปลงให้ parse หรือจับ pattern ง่ายๆ
-        raw_html = response.text
+        raw_html = self.__cache[url_path]
 
-        # print(html)
         # ให้ regex หาตาม pattern ที่เราเขียน
         matches = re.findall(pattern, raw_html, flags=re.DOTALL | re.IGNORECASE)
 
         if len(matches) == 0:
             print("Empty data raw html:", raw_html)
-
-            return []
-        
-        # เก็บลง cache
-        self.__cache[url_path] = matches
         
         return matches
+    
+    def get_raw_html(self, html_path):
+        return  self.__cache[html_path]
 
     # เอาไว้ Test pattern
     def parser(self, pattern: str, data: str) -> dict:
