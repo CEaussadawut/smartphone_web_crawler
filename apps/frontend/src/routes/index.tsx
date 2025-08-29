@@ -5,18 +5,16 @@ import { brandsApiBrandsGetOptions } from "@/client/@tanstack/react-query.gen";
 import LoadingComponent from "@/components/loading";
 
 export const Route = createFileRoute("/")({
-  component: Index
+  loader: async ({ context: { queryClient } }) => {
+    await queryClient.ensureQueryData(brandsApiBrandsGetOptions());
+  },
+  pendingComponent: () => <LoadingComponent />,
+  errorComponent: ({ error }) => `An error has occurred: ${error.message}`,
+  component: RouteComponent,
 });
 
-function Index() {
+function RouteComponent() {
   const phoneBrandsQuery = useSuspenseQuery(brandsApiBrandsGetOptions());
-
-  if (phoneBrandsQuery.isLoading) return <LoadingComponent />;
-
-  if (phoneBrandsQuery.error) {
-    return `An error has occurred: ${phoneBrandsQuery.error.message}`;
-  }
-
   const brands = phoneBrandsQuery.data;
 
   return (
@@ -66,7 +64,7 @@ function Index() {
         <ul className="grid grid-cols-5  gap-2">
           {brands.map((brand, index) => (
             <li key={index} className="hover:text-orange-500">
-              <Link to="/device/$brand" params={{ brand: brand.href }}>
+              <Link to="/device/$brandSlug" params={{ brandSlug: brand.href }}>
                 {brand.name}
               </Link>
             </li>

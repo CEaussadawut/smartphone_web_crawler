@@ -1,6 +1,6 @@
 import type { PhonePreview } from "@/client/types.gen";
 
-const Phone = ({ phone }: { phone: PhonePreview }) => {
+const PhonePreviewCard = ({ phone }: { phone: PhonePreview }) => {
   return (
     <a href={phone.href} target="_blank">
       <div className="text-[#151515] bg-white flex flex-col justify-center gap-4 p-4 rounded-sm">
@@ -11,4 +11,4 @@ const Phone = ({ phone }: { phone: PhonePreview }) => {
   );
 };
 
-export default Phone;
+export default PhonePreviewCard;
