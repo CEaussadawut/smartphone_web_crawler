@@ -3,8 +3,15 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
 
 import { brandsApiBrandsGetOptions } from "@/client/@tanstack/react-query.gen";
-import LoadingComponent from "@/components/loading";
 import Category from "@/components/category";
+import LoadingComponent from "@/components/loading";
+import {
+  AppleMockup,
+  OppoMockup,
+  SamsungMockup,
+  vivoMockup,
+  XiaomiMockup
+} from "@/lib/mockup";
 
 export const Route = createFileRoute("/")({
   loader: async ({ context: { queryClient } }) => {
@@ -12,7 +19,7 @@ export const Route = createFileRoute("/")({
   },
   pendingComponent: () => <LoadingComponent />,
   errorComponent: ({ error }) => `An error has occurred: ${error.message}`,
-  component: RouteComponent,
+  component: RouteComponent
 });
 
 function RouteComponent() {
@@ -56,10 +63,16 @@ function RouteComponent() {
         </div>
       </section>
 
-      <Category />
+      <section className="container flex flex-col gap-8 mx-auto p-8 text-white mb-12">
+        <Category brandName="Apple" previewPhones={AppleMockup} />
+        <Category brandName="Samsung" previewPhones={SamsungMockup} />
+        <Category brandName="Xiaomi" previewPhones={XiaomiMockup} />
+        <Category brandName="Oppo" previewPhones={OppoMockup} />
+        <Category brandName="Vivo" previewPhones={vivoMockup} />
+      </section>
 
       <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
-        <h1 className="text-5xl font-semibold">ALL Brand Phone</h1>
+        <h1 className="text-5xl font-semibold">All Brands Available</h1>
         <ul className="grid grid-cols-5  gap-2">
           {brands.map((brand, index) => (
             <li key={index} className="hover:text-orange-500">

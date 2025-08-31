@@ -7,7 +7,7 @@ export const Route = createFileRoute("/about")({
 
 function About() {
   return (
-    <main className="min-h-screen h-screen container mx-auto p-12 flex flex-col gap-24">
+    <main className="min-h-screen container mx-auto p-12 flex flex-col gap-24">
       <motion.h1
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -16,7 +16,7 @@ function About() {
         About
       </motion.h1>
 
-      <div className="flex flex-col gap-4">
+      <section className="flex flex-col gap-4">
         <p className="indent-8">
           โจทย์: ให้แต่ละกลุ่มสร้าง Web Application ที่ทำหน้าที่เป็น Web Crawler
           โดยใช้ Regular Expression Library ของ Python (import re)
@@ -101,7 +101,7 @@ function About() {
           เช่น BeautifulSoup หรือ Scrapy ทำให้เป็นการฝึกการใช้งาน Regex ในการทำ
           Data Extraction จากเว็บเพจจริงได้อย่างมีประสิทธิภาพ.
         </p>
-      </div>
+      </section>
     </main>
   );
 }

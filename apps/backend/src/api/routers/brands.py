@@ -6,12 +6,12 @@ from src.utils import Regex, Pattern
 
 router = APIRouter(prefix="/api")
 
-ตัวอย่าง_regex = Regex()
+cedt_regex = Regex()
 
 @router.get("/brands", status_code=status.HTTP_200_OK, response_model=list[Brands])
 async def brands() -> list[Brands]:
     try:
-        matches = ตัวอย่าง_regex.find(Pattern.FINDING_ALL_BRANDS, "makers.php3", True)
+        matches = cedt_regex.find(Pattern.FINDING_ALL_BRAND, "makers.php3")
 
         brands = []
 
