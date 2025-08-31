@@ -14,7 +14,7 @@ cedt_regex = Regex()
 
 cached = False
 
-@router.get("/export_csv", status_code=status.HTTP_200_OK,response_model=list[PhonePreview])
+@router.post("/export_csv", status_code=status.HTTP_200_OK,response_model=list[PhonePreview])
 async def export_csv():
     global cached
     try:    

@@ -29,6 +29,10 @@ export type HttpValidationError = {
  */
 export type PhonePreview = {
     /**
+     * Brand
+     */
+    brand: string;
+    /**
      * Name
      */
     name: string;
@@ -108,50 +112,22 @@ export type GetPhoneBrandApiDeviceBrandGetResponses = {
 
 export type GetPhoneBrandApiDeviceBrandGetResponse = GetPhoneBrandApiDeviceBrandGetResponses[keyof GetPhoneBrandApiDeviceBrandGetResponses];
 
-export type ParserApiParserGetData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/parser';
-};
-
-export type ParserApiParserGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: unknown;
-};
-
-export type GetPhoneBrandApiExportCsvGetData = {
+export type ExportCsvApiExportCsvPostData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/api/export_csv';
 };
 
-export type GetPhoneBrandApiExportCsvGetResponses = {
+export type ExportCsvApiExportCsvPostResponses = {
     /**
-     * Response Get Phone Brand Api Export Csv Get
+     * Response Export Csv Api Export Csv Post
      * Successful Response
      */
     200: Array<PhonePreview>;
 };
 
-export type GetPhoneBrandApiExportCsvGetResponse = GetPhoneBrandApiExportCsvGetResponses[keyof GetPhoneBrandApiExportCsvGetResponses];
-
-export type ReadRootGetData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/';
-};
-
-export type ReadRootGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: unknown;
-};
+export type ExportCsvApiExportCsvPostResponse = ExportCsvApiExportCsvPostResponses[keyof ExportCsvApiExportCsvPostResponses];
 
 export type ClientOptions = {
     baseURL: 'http://127.0.0.1:8000' | (string & {});

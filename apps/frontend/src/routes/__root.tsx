@@ -5,13 +5,14 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
+import { Toaster } from "@/components/ui/sonner";
 
 type Context = {
   queryClient: QueryClient;
 };
 
 export const Route = createRootRouteWithContext<Context>()({
-  component: RootComponent
+  component: RootComponent,
 });
 
 function RootComponent() {
@@ -21,8 +22,8 @@ function RootComponent() {
       <div className="pb-12">
         <Outlet />
       </div>
+      <Toaster />
       <Footer />
-
       <ReactQueryDevtools />
       <TanStackRouterDevtools />
     </>

@@ -1,16 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
+import { toast } from "sonner";
 import * as XLSX from "xlsx";
 
-import { getPhoneBrandApiExportCsvGetOptions } from "@/client/@tanstack/react-query.gen";
+import { exportCsvApiExportCsvPostMutation } from "@/client/@tanstack/react-query.gen";
 import type { PhonePreview } from "@/client/types.gen";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/shadcn-io/spinner";
 
 export const Route = createFileRoute("/export")({
-  component: RouteComponent
+  component: RouteComponent,
 });
 
 function exportToCSV(data: PhonePreview[]) {
@@ -25,31 +26,18 @@ function exportToCSV(data: PhonePreview[]) {
 }
 
 function RouteComponent() {
-  const [hasExported, setHasExported] = useState(false);
+  const exportCSVMutation = useMutation(exportCsvApiExportCsvPostMutation());
 
-  const { isLoading, isError, data, error, refetch, isFetched } = useQuery({
-    ...getPhoneBrandApiExportCsvGetOptions(),
-    enabled: false
-  });
-
-  const exportCSVCallback = useCallback(() => {
-    if (data) {
+  const exportCSVCallback = useCallback(async () => {
+    try {
+      const data = await exportCSVMutation.mutateAsync({});
       exportToCSV(data);
-    } else {
-      refetch();
+      toast.success("Export CSV เสร็จสิ้น");
+    } catch (err) {
+      toast.error("ไม่สามารถ export csv ได้!");
+      console.error(err);
     }
-  }, [data, refetch]);
-
-  useEffect(() => {
-    if (isFetched && data && !hasExported) {
-      exportToCSV(data);
-      setHasExported(true);
-    }
-
-    if (isError) {
-      console.error(error);
-    }
-  }, [data, error, hasExported, isError, isFetched]);
+  }, [exportCSVMutation]);
 
   return (
     <main className="min-h-screen container mx-auto p-8 flex flex-col gap-4">
@@ -75,13 +63,30 @@ function RouteComponent() {
           3นาที โปรดรอสักครู่)
         </p>
 
-        <Button
-          className="min-w-28 ml-auto cursor-pointer bg-orange-500 hover:bg-orange-400"
-          onClick={exportCSVCallback}
-          disabled={isLoading}
-        >
-          {isLoading ? <Spinner variant="ring" /> : "Download CSV"}
-        </Button>
+        <div className="flex flex-row space-x-3">
+          <Button
+            className="min-w-28 ml-auto cursor-pointer bg-orange-500 hover:bg-orange-400"
+            onClick={
+              exportCSVMutation.isPaused
+                ? exportCSVMutation.reset
+                : exportCSVCallback
+            }
+            disabled={exportCSVMutation.isPending}
+          >
+            {exportCSVMutation.isPending ? (
+              <>
+                <Spinner variant="ring" />
+                Exporting...
+              </>
+            ) : (
+              "Download CSV"
+            )}
+          </Button>
+
+          {exportCSVMutation.isPending && (
+            <Button variant="destructive">Cancel</Button>
+          )}
+        </div>
 
         {/* <div className="w-1/2 flex flex-col gap-4 justify-center items-end">
           <p className="text-xl">
