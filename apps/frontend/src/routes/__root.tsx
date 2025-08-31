@@ -18,7 +18,9 @@ function RootComponent() {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <div className="pb-12">
+        <Outlet />
+      </div>
       <Footer />
 
       <ReactQueryDevtools />

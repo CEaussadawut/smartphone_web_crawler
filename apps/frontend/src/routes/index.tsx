@@ -1,8 +1,10 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { motion } from "motion/react";
 
 import { brandsApiBrandsGetOptions } from "@/client/@tanstack/react-query.gen";
 import LoadingComponent from "@/components/loading";
+import Category from "@/components/category";
 
 export const Route = createFileRoute("/")({
   loader: async ({ context: { queryClient } }) => {
@@ -23,9 +25,24 @@ function RouteComponent() {
         <div className="absolute top-0 w-full">
           <div className="absolute bg-black opacity-50 h-full w-full pointer-events-none"></div>
           <div className="absolute left-8 bottom-16 text-white z-10 flex flex-col gap-4 text-9xl font-semibold">
-            <h1>THE PHONE </h1>
-            <h1>PORTAL</h1>
+            <motion.h1
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+            >
+              THE PHONE
+            </motion.h1>
+            <motion.h1
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1, transition: { delay: 0.1 } }}
+            >
+              PORTAL
+            </motion.h1>
           </div>
+          {/* <div className="absolute left-0 right-0 bottom-2 flex justify-around">
+            <p>Find Phone, Find CEDT Phone.</p>
+            <p>Find Phone, Find CEDT Phone.</p>
+            <p>Make with Love by CEDT Phone Group.</p>
+          </div> */}
           <video
             className="w-full h-screen -z-10 object-cover"
             autoPlay
@@ -39,25 +56,7 @@ function RouteComponent() {
         </div>
       </section>
 
-      <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
-        <h1 className="text-5xl font-semibold">Samsung</h1>
-      </section>
-
-      <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
-        <h1 className="text-5xl font-semibold">Iphone</h1>
-      </section>
-
-      <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
-        <h1 className="text-5xl font-semibold">Oppo</h1>
-      </section>
-
-      <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
-        <h1 className="text-5xl font-semibold">Xiaomi</h1>
-      </section>
-
-      <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
-        <h1 className="text-5xl font-semibold">Vivo</h1>
-      </section>
+      <Category />
 
       <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
         <h1 className="text-5xl font-semibold">ALL Brand Phone</h1>
