@@ -77,7 +77,7 @@ export type BrandsApiBrandsGetResponses = {
 
 export type BrandsApiBrandsGetResponse = BrandsApiBrandsGetResponses[keyof BrandsApiBrandsGetResponses];
 
-export type GetPhoneBrandApiBrandGetData = {
+export type GetPhoneBrandApiDeviceBrandGetData = {
     body?: never;
     path: {
         /**
@@ -86,27 +86,27 @@ export type GetPhoneBrandApiBrandGetData = {
         brand: string;
     };
     query?: never;
-    url: '/api/{brand}';
+    url: '/api/device/{brand}';
 };
 
-export type GetPhoneBrandApiBrandGetErrors = {
+export type GetPhoneBrandApiDeviceBrandGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetPhoneBrandApiBrandGetError = GetPhoneBrandApiBrandGetErrors[keyof GetPhoneBrandApiBrandGetErrors];
+export type GetPhoneBrandApiDeviceBrandGetError = GetPhoneBrandApiDeviceBrandGetErrors[keyof GetPhoneBrandApiDeviceBrandGetErrors];
 
-export type GetPhoneBrandApiBrandGetResponses = {
+export type GetPhoneBrandApiDeviceBrandGetResponses = {
     /**
-     * Response Get Phone Brand Api  Brand  Get
+     * Response Get Phone Brand Api Device  Brand  Get
      * Successful Response
      */
     200: Array<PhonePreview>;
 };
 
-export type GetPhoneBrandApiBrandGetResponse = GetPhoneBrandApiBrandGetResponses[keyof GetPhoneBrandApiBrandGetResponses];
+export type GetPhoneBrandApiDeviceBrandGetResponse = GetPhoneBrandApiDeviceBrandGetResponses[keyof GetPhoneBrandApiDeviceBrandGetResponses];
 
 export type ParserApiParserGetData = {
     body?: never;
@@ -121,6 +121,23 @@ export type ParserApiParserGetResponses = {
      */
     200: unknown;
 };
+
+export type GetPhoneBrandApiExportCsvGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/export_csv';
+};
+
+export type GetPhoneBrandApiExportCsvGetResponses = {
+    /**
+     * Response Get Phone Brand Api Export Csv Get
+     * Successful Response
+     */
+    200: Array<PhonePreview>;
+};
+
+export type GetPhoneBrandApiExportCsvGetResponse = GetPhoneBrandApiExportCsvGetResponses[keyof GetPhoneBrandApiExportCsvGetResponses];
 
 export type ReadRootGetData = {
     body?: never;
