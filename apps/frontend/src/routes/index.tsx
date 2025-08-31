@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 
 import { brandsApiBrandsGetOptions } from "@/client/@tanstack/react-query.gen";
 import LoadingComponent from "@/components/loading";
+import Category from "@/components/category";
 
 export const Route = createFileRoute("/")({
   loader: async ({ context: { queryClient } }) => {
@@ -11,7 +12,7 @@ export const Route = createFileRoute("/")({
   },
   pendingComponent: () => <LoadingComponent />,
   errorComponent: ({ error }) => `An error has occurred: ${error.message}`,
-  component: RouteComponent
+  component: RouteComponent,
 });
 
 function RouteComponent() {
@@ -55,25 +56,7 @@ function RouteComponent() {
         </div>
       </section>
 
-      <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
-        <h1 className="text-5xl font-semibold">Samsung</h1>
-      </section>
-
-      <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
-        <h1 className="text-5xl font-semibold">Iphone</h1>
-      </section>
-
-      <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
-        <h1 className="text-5xl font-semibold">Oppo</h1>
-      </section>
-
-      <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
-        <h1 className="text-5xl font-semibold">Xiaomi</h1>
-      </section>
-
-      <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
-        <h1 className="text-5xl font-semibold">Vivo</h1>
-      </section>
+      <Category />
 
       <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
         <h1 className="text-5xl font-semibold">ALL Brand Phone</h1>
