@@ -37,6 +37,11 @@ function RouteComponent() {
               PORTAL
             </motion.h1>
           </div>
+          {/* <div className="absolute left-0 right-0 bottom-2 flex justify-around">
+            <p>Find Phone, Find CEDT Phone.</p>
+            <p>Find Phone, Find CEDT Phone.</p>
+            <p>Make with Love by CEDT Phone Group.</p>
+          </div> */}
           <video
             className="w-full h-screen -z-10 object-cover"
             autoPlay
