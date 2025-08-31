@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.api import (brands_router, device_router, parser_router)
+from src.api import (brands_router, device_router, parser_router, export_router)
 from src.config.config import PROJECT_NAME, VERSION
 
 app = FastAPI(title=PROJECT_NAME, version=VERSION)
@@ -17,6 +17,7 @@ app.add_middleware(
 app.include_router(brands_router, tags=["brands"])
 app.include_router(device_router, tags=["device"])
 app.include_router(parser_router, tags=["parser"])
+app.include_router(export_router, tags=["export"])
 
 @app.get("/")
 def read_root():

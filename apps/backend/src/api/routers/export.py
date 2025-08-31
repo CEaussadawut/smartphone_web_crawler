@@ -1,4 +1,6 @@
 import re
+import asyncio
+import random
 from src.model import PhonePreview
 from src.utils import Regex, Pattern
 from fastapi import APIRouter, HTTPException, status
@@ -10,10 +12,20 @@ router = APIRouter(prefix="/api")
 
 ตัวอย่าง_regex = Regex()
 
-@router.get("/device/{brand}", status_code=status.HTTP_200_OK,response_model=list[PhonePreview])
-async def get_phone_brand(brand: str):
-    try:
-        matches = ตัวอย่าง_regex.find(Pattern.FINDING_ALL_PHONE_BRAND, brand)
+@router.get("/export/csv", status_code=status.HTTP_200_OK,response_model=list[PhonePreview])
+async def get_phone_brand():
+    try:    
+
+        x = ตัวอย่าง_regex.find(Pattern.FINDING_ALL_BRANDS, "makers.php3", True)
+        matches = []
+        for href, _ in x:
+            await asyncio.sleep(random.uniform(1, 1.25))
+            matches.extend(ตัวอย่าง_regex.find(Pattern.FINDING_ALL_PHONE_BRAND, href))
+
+
+
+        
+        
 
         all_phone = []
 
