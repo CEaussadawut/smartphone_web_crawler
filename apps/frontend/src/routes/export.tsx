@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { useCallback } from "react";
-import { toast } from "sonner";
+import { useCallback, useRef } from "react";
+import { toast, type ToastT } from "sonner";
 import * as XLSX from "xlsx";
 
 import { exportCsvApiExportCsvPostMutation } from "@/client/@tanstack/react-query.gen";
@@ -27,16 +27,36 @@ function exportToCSV(data: PhonePreview[]) {
 
 function RouteComponent() {
   const exportCSVMutation = useMutation(exportCsvApiExportCsvPostMutation());
+  const exportCSVToast = useRef<ToastT["id"] | null>(null);
+  const isCancelled = useRef(false);
 
   const exportCSVCallback = useCallback(async () => {
-    try {
-      const data = await exportCSVMutation.mutateAsync({});
-      exportToCSV(data);
-      toast.success("Export CSV เสร็จสิ้น");
-    } catch (err) {
-      toast.error("ไม่สามารถ export csv ได้!");
-      console.error(err);
+    isCancelled.current = false;
+    const exportCSV = exportCSVMutation.mutateAsync({});
+
+    exportCSVToast.current = toast.promise(exportCSV, {
+      loading: "กำลัง export csv",
+      success: (data) => {
+        if (isCancelled.current) {
+          return "การ export ถูกยกเลิก";
+        }
+        exportToCSV(data);
+        return "Export CSV เสร็จสิ้น";
+      },
+      error: (err) => {
+        console.error(err);
+        return "ไม่สามารถ export csv ได้!";
+      },
+    }) as string | number;
+  }, [exportCSVMutation]);
+
+  const handleCancel = useCallback(() => {
+    isCancelled.current = true;
+    if (exportCSVToast.current) {
+      toast.dismiss(exportCSVToast.current);
     }
+    exportCSVMutation.reset();
+    toast.success("ยกเลิก export csv แล้ว");
   }, [exportCSVMutation]);
 
   return (
@@ -84,20 +104,11 @@ function RouteComponent() {
           </Button>
 
           {exportCSVMutation.isPending && (
-            <Button variant="destructive">Cancel</Button>
+            <Button variant="destructive" onClick={handleCancel}>
+              Cancel
+            </Button>
           )}
         </div>
-
-        {/* <div className="w-1/2 flex flex-col gap-4 justify-center items-end">
-          <p className="text-xl">
-            กลุ่มผมได้ปรึกษาหารือเกี่ยวกับ CSV ที่อาจารย์ต้องการ
-            โดยจำนวนชื่อในหมวดที่เลือก ต้องไม่ต่ำกว่า 200 ชื่อ
-            ทางกลุ่มจึงเลือกแบรนด์เกี่ยวกับมือถือ รุ่น Samsung
-            ซึ่งมีมือถือมากถึง 1400 เครื่อง จึงเหมาะสมที่จะทำการ Export ออกเป็น
-            CSV แล้วส่งให้กับอาจารย์ครับ.
-          </p>
-         
-        </div> */}
       </section>
     </main>
   );

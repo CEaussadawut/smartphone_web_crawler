@@ -18,12 +18,15 @@ Python >= 3.10
 ez โคตรรรร ทำตามนี้
 
 ### 1. สร้าง python environment ขึ้นมา ณ root path ของ project
+
 เปิด code editor แล้ว new terminal ขึ้นมา แล้วพิม
 
 ```py
 python -m venv apps/backend/venv
 ```
+
 ### 2. สร้าง symlink folder เพื่อให้ path ตรงกับ script ที่ตั้งไว้ (หากใช้ linux ข้ามขั้นตอนนี้ได้เลอ)
+
 ณ root path ของ project **(ใช้ command prompt ด้วยสิทธิ์ admin เท่านั้น!!!)**
 
 command prompt run as admin แล้วไปที่ root path ของโปรเจค จากนั้นพิม
@@ -31,7 +34,9 @@ command prompt run as admin แล้วไปที่ root path ของโ�
 ```py
 cd apps/backend/venv && mklink /d bin Scripts
 ```
+
 ### 3. รันเลยย
+
 ปิด command prompt กลับไปที่ code editor จากนั้นพิม
 
 ```js
@@ -47,3 +52,17 @@ cd apps/frontend && bun run openapi-ts
 ```
 
 ปล. package ทั้งหมดจะลงไว้ใน folder โปรเจคนี้ ไม่ต้องห่วง backdoor เพราะโดนอยู่แล้ว (หยอก)
+
+## How to start (Production with Docker)
+
+### 1. Build the Docker image
+
+```sh
+docker build -t phone-web-crawler .
+```
+
+### 2. Run the Docker container
+
+```sh
+docker run -p 8000:8000 --rm phone-web-crawler
+```
