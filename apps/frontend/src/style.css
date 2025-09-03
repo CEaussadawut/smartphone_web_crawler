@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Oswald:wght@200..700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -122,7 +122,7 @@
     color: white;
     background: #151515;
 
-    font-family: "Oswald", sans-serif;
+    font-family: "Oswald", "Noto Sans Thai", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
@@ -130,5 +130,14 @@
 
   ::selection {
     background-color: var(--color-orange-300);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }

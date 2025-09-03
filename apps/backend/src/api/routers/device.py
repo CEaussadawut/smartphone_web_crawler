@@ -8,18 +8,20 @@ from src.config import CRAWLER_ENDPOINT
 
 router = APIRouter(prefix="/api")
 
-ตัวอย่าง_regex = Regex()
+cedt_regex = Regex()
 
-@router.get("/{brand}", status_code=status.HTTP_200_OK,response_model=list[PhonePreview])
+@router.get("/device/{brand}", status_code=status.HTTP_200_OK,response_model=list[PhonePreview])
 async def get_phone_brand(brand: str):
     try:
-        matches = ตัวอย่าง_regex.find(Pattern.FINDING_ALL_PHONE_BRAND, brand)
+        all_phone_matches = cedt_regex.find(Pattern.FINDING_ALL_PHONE_BRAND, brand)
 
         all_phone = []
 
-        for href, img, name in matches:
+        brand_name = brand.split("-")[0].capitalize()
+
+        for href, img, name in all_phone_matches:
             clean_name = re.sub(r"<.*?>", "", name).strip()
-            phone = PhonePreview(name=clean_name, img=img, href=f"{CRAWLER_ENDPOINT}/{href}")
+            phone = PhonePreview(brand=brand_name,name=clean_name, img=img, href=f"{CRAWLER_ENDPOINT}/{href}")
 
             if phone not in all_phone:
                 all_phone.append(phone)

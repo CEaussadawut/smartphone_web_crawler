@@ -1,8 +1,10 @@
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
-from src.api import (brands_router, device_router, parser_router)
-from src.config.config import PROJECT_NAME, VERSION
+from src.api import (brands_router, device_router, export_router, test_router)
+from src.config.config import PROJECT_NAME, VERSION, ENVIRONMENT
 
 app = FastAPI(title=PROJECT_NAME, version=VERSION)
 
@@ -16,8 +18,12 @@ app.add_middleware(
 
 app.include_router(brands_router, tags=["brands"])
 app.include_router(device_router, tags=["device"])
-app.include_router(parser_router, tags=["parser"])
+app.include_router(export_router, tags=["export"])
+app.include_router(test_router, tags=["test"])
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+if ENVIRONMENT == "production":
+    app.mount("/assets", StaticFiles(directory="src/static/assets"), name="assets")
+
+    @app.get("/{full_path:path}")
+    async def catch_all(full_path: str):
+        return FileResponse("src/static/index.html")

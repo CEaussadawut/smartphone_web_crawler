@@ -1,7 +1,5 @@
-import { Label } from "@radix-ui/react-label";
-import { Switch } from "@radix-ui/react-switch";
 import { Link } from "@tanstack/react-router";
-import { Smartphone } from "lucide-react";
+import { Github, Smartphone } from "lucide-react";
 
 const Navbar = () => {
   return (
@@ -18,13 +16,21 @@ const Navbar = () => {
         <Link to="/about" className="underline">
           About
         </Link>
+        <Link to="/export" className="underline">
+          Export CSV
+        </Link>
       </div>
 
-      <div className="ml-auto">
-        <div className="z-50">
-          <Switch id="dark-mode" />
-          <Label htmlFor="dark-mode">Dark</Label>
-        </div>
+      <div className="ml-auto flex gap-4">
+        {/* <button className="cursor-pointer" onClick={() => {}}>
+          Dark
+        </button> */}
+        <a
+          href="https://github.com/CEaussadawut/smartphone_web_crawler"
+          target="_blank"
+        >
+          <Github />
+        </a>
       </div>
     </nav>
   );

@@ -1,4 +1,3 @@
-import re
 from fastapi import APIRouter, HTTPException, status
 
 from src.model import Brands
@@ -8,21 +7,13 @@ router = APIRouter(prefix="/api")
 
 cedt_regex = Regex()
 
-@router.get("/brands", status_code=status.HTTP_200_OK, response_model=list[Brands])
-async def brands() -> list[Brands]:
+@router.get("/test", status_code=status.HTTP_200_OK, response_model=list)
+async def test() -> list[Brands]:
     try:
+        # ใส่ Pattern + Path ของลิงค์ที่ต้องการ Claw
         matches = cedt_regex.find(Pattern.FINDING_ALL_BRAND, "makers.php3")
 
-        brands = []
-
-        for href, name in matches:
-            clean_name = re.sub(r"<.*?>", "", name).strip()
-            brand_name = Brands(name=clean_name, href=href)
-
-            if brand_name not in brands:
-                brands.append(brand_name)
-
-        return brands
+        return matches
     except Exception as error_msg:
         raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

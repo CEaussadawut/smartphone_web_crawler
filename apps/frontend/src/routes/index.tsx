@@ -1,22 +1,29 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { motion } from "motion/react";
 
 import { brandsApiBrandsGetOptions } from "@/client/@tanstack/react-query.gen";
+import Category from "@/components/category";
 import LoadingComponent from "@/components/loading";
+import {
+  AppleMockup,
+  OppoMockup,
+  SamsungMockup,
+  vivoMockup,
+  XiaomiMockup
+} from "@/lib/mockup";
 
 export const Route = createFileRoute("/")({
-  component: Index
+  loader: async ({ context: { queryClient } }) => {
+    await queryClient.ensureQueryData(brandsApiBrandsGetOptions());
+  },
+  pendingComponent: () => <LoadingComponent />,
+  errorComponent: ({ error }) => `An error has occurred: ${error.message}`,
+  component: RouteComponent
 });
 
-function Index() {
+function RouteComponent() {
   const phoneBrandsQuery = useSuspenseQuery(brandsApiBrandsGetOptions());
-
-  if (phoneBrandsQuery.isLoading) return <LoadingComponent />;
-
-  if (phoneBrandsQuery.error) {
-    return `An error has occurred: ${phoneBrandsQuery.error.message}`;
-  }
-
   const brands = phoneBrandsQuery.data;
 
   return (
@@ -25,9 +32,24 @@ function Index() {
         <div className="absolute top-0 w-full">
           <div className="absolute bg-black opacity-50 h-full w-full pointer-events-none"></div>
           <div className="absolute left-8 bottom-16 text-white z-10 flex flex-col gap-4 text-9xl font-semibold">
-            <h1>THE PHONE </h1>
-            <h1>PORTAL</h1>
+            <motion.h1
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+            >
+              THE PHONE
+            </motion.h1>
+            <motion.h1
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1, transition: { delay: 0.1 } }}
+            >
+              PORTAL
+            </motion.h1>
           </div>
+          {/* <div className="absolute left-0 right-0 bottom-2 flex justify-around">
+            <p>Find Phone, Find CEDT Phone.</p>
+            <p>Find Phone, Find CEDT Phone.</p>
+            <p>Make with Love by CEDT Phone Group.</p>
+          </div> */}
           <video
             className="w-full h-screen -z-10 object-cover"
             autoPlay
@@ -41,32 +63,20 @@ function Index() {
         </div>
       </section>
 
-      <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
-        <h1 className="text-5xl font-semibold">Samsung</h1>
+      <section className="container flex flex-col gap-8 mx-auto p-8 text-white mb-12">
+        <Category brandName="Apple" previewPhones={AppleMockup} />
+        <Category brandName="Samsung" previewPhones={SamsungMockup} />
+        <Category brandName="Xiaomi" previewPhones={XiaomiMockup} />
+        <Category brandName="Oppo" previewPhones={OppoMockup} />
+        <Category brandName="Vivo" previewPhones={vivoMockup} />
       </section>
 
       <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
-        <h1 className="text-5xl font-semibold">Iphone</h1>
-      </section>
-
-      <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
-        <h1 className="text-5xl font-semibold">Oppo</h1>
-      </section>
-
-      <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
-        <h1 className="text-5xl font-semibold">Xiaomi</h1>
-      </section>
-
-      <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
-        <h1 className="text-5xl font-semibold">Vivo</h1>
-      </section>
-
-      <section className="container flex flex-col gap-8 mx-auto p-8 text-white">
-        <h1 className="text-5xl font-semibold">ALL Brand Phone</h1>
+        <h1 className="text-5xl font-semibold">All Brands Available</h1>
         <ul className="grid grid-cols-5  gap-2">
           {brands.map((brand, index) => (
             <li key={index} className="hover:text-orange-500">
-              <Link to="/device/$brand" params={{ brand: brand.href }}>
+              <Link to="/device/$brandSlug" params={{ brandSlug: brand.href }}>
                 {brand.name}
               </Link>
             </li>
