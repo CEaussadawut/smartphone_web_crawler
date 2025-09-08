@@ -17,3 +17,7 @@ class Pattern:
     FINDING_TABLE_HEAD = r'<th[^>]*rowspan="[^"]*"[^>]*scope="row"[^>]*>(.*?)</th>'
     FINDING_TABLE_TTL = r'<td[^>]*class="ttl"[^>]*><a[^>]*>(.*?)</a></td>'
     FINDING_TABLE_NFO = r'<td[^>]*class=["\'][^"\']*\bnfo\b[^"\']*["\'][^>]*>([\s\S]*?)</td>'
+    FINDING_PHOTO = r'<img src="(.*)" border=0 alt=".*">'
+    FINDING_PHOTO_IN_SPEC_PAGE = r'<div class="specs-photo-main">\n*\s*<a href=(.*)><img alt="[^"]" src=(.*)<\/a>'
+    FINDING_COMMS = r'<td class="nfo" data\-spec=".">(.)<\/td>'
+    FINDING_MISC = r'<td class="nfo" data-spec="(colors|models|sar-eu|price)">([^<]+)<\/td>'
