@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Dict, Optional
+from typing import Dict
 
 class SpecPhone(BaseModel):
     name: str
