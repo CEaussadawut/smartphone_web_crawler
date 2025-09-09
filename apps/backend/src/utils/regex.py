@@ -27,6 +27,8 @@ class Regex:
             if response.status_code != 200:
                 print(f"Failed to get path {url_path} with status code: {response.status_code}")
 
+                print(f"url {CRAWLER_MOBILE_ENDPOINT if mobile else CRAWLER_ENDPOINT}/{url_path}")
+
                 raise Exception(f"Failed to get path {url_path} with status code: {response.status_code}")     
 
             # เก็บ raw html ลง cache
