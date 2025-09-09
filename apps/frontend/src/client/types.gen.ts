@@ -47,6 +47,24 @@ export type PhonePreview = {
 };
 
 /**
+ * SearchPhone
+ */
+export type SearchPhone = {
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Img
+     */
+    img: string;
+    /**
+     * Href
+     */
+    href: string;
+};
+
+/**
  * ValidationError
  */
 export type ValidationError = {
@@ -128,6 +146,54 @@ export type ExportCsvApiExportCsvPostResponses = {
 };
 
 export type ExportCsvApiExportCsvPostResponse = ExportCsvApiExportCsvPostResponses[keyof ExportCsvApiExportCsvPostResponses];
+
+export type TestApiTestGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/test';
+};
+
+export type TestApiTestGetResponses = {
+    /**
+     * Response Test Api Test Get
+     * Successful Response
+     */
+    200: Array<unknown>;
+};
+
+export type TestApiTestGetResponse = TestApiTestGetResponses[keyof TestApiTestGetResponses];
+
+export type TestSearchApiTestSearchPostData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Keyword
+         */
+        keyword: string;
+    };
+    url: '/api/test_search';
+};
+
+export type TestSearchApiTestSearchPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type TestSearchApiTestSearchPostError = TestSearchApiTestSearchPostErrors[keyof TestSearchApiTestSearchPostErrors];
+
+export type TestSearchApiTestSearchPostResponses = {
+    /**
+     * Response Test Search Api Test Search Post
+     * Successful Response
+     */
+    200: Array<SearchPhone>;
+};
+
+export type TestSearchApiTestSearchPostResponse = TestSearchApiTestSearchPostResponses[keyof TestSearchApiTestSearchPostResponses];
 
 export type ClientOptions = {
     baseURL: 'http://127.0.0.1:8000' | (string & {});
