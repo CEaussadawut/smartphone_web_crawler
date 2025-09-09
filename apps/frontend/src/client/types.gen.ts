@@ -129,6 +129,23 @@ export type ExportCsvApiExportCsvPostResponses = {
 
 export type ExportCsvApiExportCsvPostResponse = ExportCsvApiExportCsvPostResponses[keyof ExportCsvApiExportCsvPostResponses];
 
+export type TestApiTestGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/test';
+};
+
+export type TestApiTestGetResponses = {
+    /**
+     * Response Test Api Test Get
+     * Successful Response
+     */
+    200: Array<unknown>;
+};
+
+export type TestApiTestGetResponse = TestApiTestGetResponses[keyof TestApiTestGetResponses];
+
 export type ClientOptions = {
     baseURL: 'http://127.0.0.1:8000' | (string & {});
 };
