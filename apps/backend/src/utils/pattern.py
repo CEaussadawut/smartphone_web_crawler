@@ -15,3 +15,9 @@ class Pattern:
     FINDING_PLATFORM__GPU = r'<td\b[^>]*\bdata-spec\s*=\s*["]gpu["][^>]*>(.*?)<\/td>'
 
     FIND_SEARCH_PHONE = r'<a\s+href=([^>]+)><img\s+src=([^ ]+)[^>]*><strong>(.*?)</strong>'
+
+    FINDING_BODY_DIMENSIONS = r'<td\b[^>]\bdata-spec\s=\s*["]dimensions["][^>]>(.?)<\/td>'
+    FINDING_BODY_WEIGHT = r'<td\b[^>]\bdata-spec\s=\s*["]weight["][^>]>(.?)<\/td>'
+    FINDING_BODY_BUILD = r'<td\b[^>]\bdata-spec\s=\s*["]build["][^>]>(.?)<\/td>'
+    FINDING_BODY_SIM = r'<td\b[^>]\bdata-spec\s=\s*["]sim["][^>]>(.?)<\/td>'
+    FINDING_BODY_OTHER = r'<td\b[^>]\bdata-spec\s=\s*["]bodyother["][^>]>(.?)<\/td>'
