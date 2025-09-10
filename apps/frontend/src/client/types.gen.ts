@@ -164,7 +164,7 @@ export type TestApiTestGetResponses = {
 
 export type TestApiTestGetResponse = TestApiTestGetResponses[keyof TestApiTestGetResponses];
 
-export type TestSearchApiTestSearchPostData = {
+export type SearchApiSearchPostData = {
     body?: never;
     path?: never;
     query: {
@@ -173,27 +173,27 @@ export type TestSearchApiTestSearchPostData = {
          */
         keyword: string;
     };
-    url: '/api/test_search';
+    url: '/api/search';
 };
 
-export type TestSearchApiTestSearchPostErrors = {
+export type SearchApiSearchPostErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type TestSearchApiTestSearchPostError = TestSearchApiTestSearchPostErrors[keyof TestSearchApiTestSearchPostErrors];
+export type SearchApiSearchPostError = SearchApiSearchPostErrors[keyof SearchApiSearchPostErrors];
 
-export type TestSearchApiTestSearchPostResponses = {
+export type SearchApiSearchPostResponses = {
     /**
-     * Response Test Search Api Test Search Post
+     * Response Search Api Search Post
      * Successful Response
      */
     200: Array<SearchPhone>;
 };
 
-export type TestSearchApiTestSearchPostResponse = TestSearchApiTestSearchPostResponses[keyof TestSearchApiTestSearchPostResponses];
+export type SearchApiSearchPostResponse = SearchApiSearchPostResponses[keyof SearchApiSearchPostResponses];
 
 export type ClientOptions = {
     baseURL: 'http://127.0.0.1:8000' | (string & {});

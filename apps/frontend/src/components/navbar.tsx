@@ -1,25 +1,25 @@
-import { testSearchApiTestSearchPostMutation } from "@/client/@tanstack/react-query.gen";
-import type { SearchPhone } from "@/client/types.gen";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { Github, Search, Smartphone } from "lucide-react";
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
+
+import { searchApiSearchPostMutation } from "@/client/@tanstack/react-query.gen";
+import type { SearchPhone } from "@/client/types.gen";
 
 const Navbar = () => {
-  const searchMutation = useMutation(testSearchApiTestSearchPostMutation());
+  const searchMutation = useMutation(searchApiSearchPostMutation());
 
   const [query, setQuery] = useState<SearchPhone[]>([]);
-  const [inputValue, setInputValue] = useState(""); 
+  const [inputValue, setInputValue] = useState("");
+
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const searchFunction = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value;
-    setInputValue(value); 
-    setQuery([]); 
+    const value = e.target.value;
+    setInputValue(value);
+    setQuery([]);
 
-    if (value.trim() === "") {
-      return;
-    }
+    if (value.trim() === "") return;
 
     if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
@@ -47,7 +47,7 @@ const Navbar = () => {
           Export CSV
         </Link>
       </div>
-    
+
       <div className="ml-auto flex items-center gap-4">
         <div className="relative">
           <span className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400">
@@ -61,9 +61,9 @@ const Navbar = () => {
             className="border-b border-gray-400 px-3 py-2 w-80 pl-10 focus:outline-none focus:border-blue-400"
           />
 
-          {(inputValue.trim() !== "" && query.length > 0) && (
+          {inputValue.trim() !== "" && query.length > 0 && (
             <div className="absolute left-0 top-full bg-white border w-full z-10 text-black max-h-60 overflow-y-auto">
-              {query.map((brand: any) => (
+              {query.map((brand: SearchPhone) => (
                 <a
                   key={brand.href}
                   href={`/device/${brand.href}`}
