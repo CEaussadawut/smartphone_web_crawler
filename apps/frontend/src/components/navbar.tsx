@@ -11,6 +11,7 @@ const Navbar = () => {
 
   const [query, setQuery] = useState<SearchPhone[]>([]);
   const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -19,13 +20,23 @@ const Navbar = () => {
     setInputValue(value);
     setQuery([]);
 
-    if (value.trim() === "") return;
+    if (value.trim() === "") {
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(true);
 
     if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
-      searchMutation.mutateAsync({ query: { keyword: value } }).then((data) => {
-        setQuery(data);
-      });
+      searchMutation
+        .mutateAsync({ query: { keyword: value } })
+        .then((data) => {
+          setQuery(data);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }, 1000);
   };
 
@@ -58,11 +69,23 @@ const Navbar = () => {
             placeholder="Search..."
             value={inputValue}
             onChange={searchFunction}
-            className="border-b border-gray-400 px-3 py-2 w-80 pl-10 focus:outline-none focus:border-blue-400"
+            className="border-b border-gray-400 px-3 py-2 w-80 pl-10 focus:outline-none focus:border-white"
           />
 
+          {isLoading && (
+            <div className="absolute left-0 top-12 bg-white border w-full z-10 text-black max-h-60 overflow-y-auto">
+              <p className="p-2">Loading...</p>
+            </div>
+          )}
+
+          {inputValue.trim() !== "" && query.length === 0 && !isLoading && (
+            <div className="absolute left-0 top-12 bg-white border w-full z-10 text-black max-h-60 overflow-y-auto">
+              <p className="p-2">Not Found</p>
+            </div>
+          )}
+
           {inputValue.trim() !== "" && query.length > 0 && (
-            <div className="absolute left-0 top-full bg-white border w-full z-10 text-black max-h-60 overflow-y-auto">
+            <div className="absolute left-0 top-12 bg-white border w-full z-10 text-black max-h-60 overflow-y-auto">
               {query.map((brand: SearchPhone) => (
                 <a
                   key={brand.href}
