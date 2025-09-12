@@ -7,7 +7,7 @@
 |:------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------- |
 | ![home_page](https://github.com/user-attachments/assets/4fe7966d-2943-4c1e-9efb-9fe1a1f93153)     | ![all_brand_phone_page](https://github.com/user-attachments/assets/8c39cc45-fd07-426d-bba6-c233bb2f2b5b) |
 | Phones in brand                                                                                   | Phone specs                                                                                              |
-| ![samsung_brand](https://github.com/user-attachments/assets/9ae09234-6e2d-4a06-a7f9-fbdf82eff95c) | ![specs_page]() |
+| ![samsung_brand](https://github.com/user-attachments/assets/9ae09234-6e2d-4a06-a7f9-fbdf82eff95c) | ![specs_page](https://github.com/user-attachments/assets/f4066cae-cde4-43f6-9690-117864b4031b) |
 | About                                                                                             | Export CSV file                                                                                          |
 | ![about_page](https://github.com/user-attachments/assets/5834d7d0-5a3b-4d8c-b6f8-a84e919876dd)    | ![export_csv_page](https://github.com/user-attachments/assets/1424eb68-a2c0-4ef8-b0dd-e3774f50850f) |
 
