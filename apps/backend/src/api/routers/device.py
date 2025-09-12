@@ -10,7 +10,7 @@ router = APIRouter(prefix="/api")
 
 cedt_regex = Regex()
 
-@router.get("/device/spec", status_code=status.HTTP_200_OK)#, response_model=Phone)
+@router.get("/device/spec", status_code=status.HTTP_200_OK, response_model=Phone)
 def get_phone_spec(phone_url: str):
     try:
         # Extract the path from the full URL
