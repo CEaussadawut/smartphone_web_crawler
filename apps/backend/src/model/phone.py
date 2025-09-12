@@ -31,7 +31,12 @@ class PhoneSpec(BaseModel):
     front_video: str | None
     sound: str | None
     sound_3_5: str | None
-    comms: str | None
+    comms_wlan: str | None
+    comms_bluetooth: str | None
+    comms_positioning: str | None
+    comms_nfc: str | None
+    comms_radio: str | None
+    comms_usb: str | None
     features: str | None
     battery: str | None
     misc_color: str | None

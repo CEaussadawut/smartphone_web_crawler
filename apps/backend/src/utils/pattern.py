@@ -47,7 +47,12 @@ class Pattern:
     FINDING_SOUND_3_5 = r'<td[^>]*class="nfo"[^>]*>\s*([^<]+?)\s*</td>'
 
     # Comms
-    FINDING_COMMS = r'<td class="nfo" data\-spec=".">(.)<\/td>'
+    FINDING_COMMS_WLAN = r'<td class="ttl"><a href="[^"]*">WLAN</a></td>\s*<td class="nfo"[^>]*>(.*?)</td>'
+    FINDING_COMMS_BLUETOOTH = r'<td class="ttl"><a href="[^"]*">Bluetooth</a></td>\s*<td class="nfo"[^>]*>(.*?)</td>'
+    FINDING_COMMS_POSITIONING = r'<td class="ttl"><a href="[^"]*">Positioning</a></td>\s*<td class="nfo"[^>]*>(.*?)</td>'
+    FINDING_COMMS_NFC= r'<td class="ttl"><a href="[^"]*">NFC</a></td>\s*<td class="nfo"[^>]*>(.*?)</td>'
+    FINDING_COMMS_RADIO= r'<td class="ttl"><a href="[^"]*">Radio</a></td>\s*<td class="nfo"[^>]*>(.*?)</td>'
+    FINDING_COMMS_USB= r'<td class="ttl"><a href="[^"]*">USB</a></td>\s*<td class="nfo"[^>]*>(.*?)</td>'
 
     # Features
     FINDING_FEATURES = r'<td class="nfo" data-spec="(?:sensors)">([^<]+)<\/td>'
