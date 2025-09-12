@@ -1,13 +1,11 @@
-import asyncio
-import random
 import re
+import random
+import asyncio
 from fastapi import APIRouter, HTTPException, status
 
 from src.config.crawler import CRAWLER_ENDPOINT
 from src.model import SearchPhone
 from src.utils import Regex, Pattern
-
-import requests
 
 router = APIRouter(prefix="/api")
 
@@ -23,7 +21,7 @@ async def search(keyword: str) -> dict:
 
         for href, img, name in matches:
             clean_name = re.sub(r"<.*?>", "", name).strip()  # ลบ HTML tags ออก
-            phone = SearchPhone(name=clean_name, img=img, href=f"{CRAWLER_ENDPOINT}/{href}")
+            phone = SearchPhone(name=clean_name, img=img, href=href)
 
             if phone not in all_phone:
                 all_phone.append(phone)

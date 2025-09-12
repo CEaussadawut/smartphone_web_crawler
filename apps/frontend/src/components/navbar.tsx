@@ -89,7 +89,7 @@ const Navbar = () => {
               {query.map((brand: SearchPhone) => (
                 <a
                   key={brand.href}
-                  href={`/device/${brand.href}`}
+                  href={`/device/spec?phone_url=${brand.href}`}
                   className="flex items-center gap-2 p-2 hover:bg-gray-100 text-black"
                 >
                   <img

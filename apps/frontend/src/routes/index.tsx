@@ -64,11 +64,31 @@ function RouteComponent() {
       </section>
 
       <section className="container flex flex-col gap-8 mx-auto p-8 text-white mb-12">
-        <Category brandName="Apple" previewPhones={AppleMockup} />
-        <Category brandName="Samsung" previewPhones={SamsungMockup} />
-        <Category brandName="Xiaomi" previewPhones={XiaomiMockup} />
-        <Category brandName="Oppo" previewPhones={OppoMockup} />
-        <Category brandName="Vivo" previewPhones={vivoMockup} />
+        <Category
+          brandName="Apple"
+          previewPhones={AppleMockup}
+          href="apple-phones-48.php"
+        />
+        <Category
+          brandName="Samsung"
+          previewPhones={SamsungMockup}
+          href="samsung-phones-9.php"
+        />
+        <Category
+          brandName="Xiaomi"
+          previewPhones={XiaomiMockup}
+          href="xiaomi-phones-80.php"
+        />
+        <Category
+          brandName="Oppo"
+          previewPhones={OppoMockup}
+          href="oppo-phones-82.php"
+        />
+        <Category
+          brandName="Vivo"
+          previewPhones={vivoMockup}
+          href="vivo-phones-98.php"
+        />
       </section>
 
       <section className="container flex flex-col gap-8 mx-auto p-8 text-white">

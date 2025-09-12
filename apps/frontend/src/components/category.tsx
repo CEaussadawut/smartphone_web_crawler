@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router";
+
 import {
   Carousel,
   CarouselContent,
@@ -11,18 +13,24 @@ export type PhonePreview = {
 
 export default function Category({
   brandName,
-  previewPhones
+  previewPhones,
+  href
 }: {
   brandName: string;
   previewPhones: PhonePreview[];
+  href: string;
 }) {
   return (
     <>
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-3xl font-bold">{brandName}</h1>
-        <a className="text-white text-sm cursor-pointer hover:text-orange-500">
+        <Link
+          to="/device/$brandSlug"
+          params={{ brandSlug: href }}
+          className="text-white text-sm cursor-pointer hover:text-orange-500"
+        >
           View More →
-        </a>
+        </Link>
       </div>
       <Carousel opts={{ skipSnaps: true }}>
         <CarouselContent>

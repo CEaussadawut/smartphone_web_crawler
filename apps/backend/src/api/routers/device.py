@@ -18,8 +18,9 @@ def get_phone_spec(phone_url: str):
 
         # Fetch the HTML content once
         # The find method caches the content, so subsequent calls with the same url_path will be fast
-        phone_name_list = cedt_regex.find(r'<h1 class="specs-phone-name-title">(.+?)</h1>', url_path)
-        phone_name = phone_name_list[0] if phone_name_list else "Unknown"
+        phone_name = re.sub(r"^[^_]+_|-\d+\.php$", "", url_path)
+        phone_name = phone_name.replace("_", " ")
+        phone_name = " ".join(word.capitalize() for word in phone_name.split())
 
         def find_spec(pattern):
             matches = cedt_regex.find(pattern, url_path)
