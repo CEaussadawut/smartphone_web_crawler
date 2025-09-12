@@ -3,7 +3,7 @@ from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from src.api import (brands_router, device_router, export_router, test_router)
+from src.api import (brands_router, device_router, export_router, test_router, search_router)
 from src.config.config import PROJECT_NAME, VERSION, ENVIRONMENT
 
 app = FastAPI(title=PROJECT_NAME, version=VERSION)
@@ -20,6 +20,7 @@ app.include_router(brands_router, tags=["brands"])
 app.include_router(device_router, tags=["device"])
 app.include_router(export_router, tags=["export"])
 app.include_router(test_router, tags=["test"])
+app.include_router(search_router, tags=["search"])
 
 if ENVIRONMENT == "production":
     app.mount("/assets", StaticFiles(directory="src/static/assets"), name="assets")

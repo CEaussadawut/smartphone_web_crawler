@@ -16,7 +16,7 @@ export const AppleMockup = [
         name: "iPad Air 13 "
     },
     {
-        img: "https://www.aptronixindia.com/media/catalog/product/cache/31f0162e6f7d821d2237f39577122a8a/i/p/ipad_pro_11_m4_space_black_p_1a-removebg-preview.png",
+        img: "https://i0.wp.com/vuatao.vn/wp-content/uploads/2024/05/ipad-pro-m4-11inch-space-black2.png",
         name: "iPad Pro M4"
     },
     {
@@ -28,7 +28,7 @@ export const AppleMockup = [
         name: "iPad mini"
     },
     {
-        img: "https://www.aptronixindia.com/media/catalog/product/cache/31f0162e6f7d821d2237f39577122a8a/a/p/apple_watch_series_9_gps_41mm_pink_aluminum_1_8-removebg-preview.png",
+        img: "https://media.studio7thailand.com/153556/TH_Apple_Watch_Series_9_CELL_41mm_PRODUCTRED_Aluminum_PRODUCTRED_Sport_Band_PDP_Image_Position-1.png",
         name: "Watch Series 9"
     },
     {

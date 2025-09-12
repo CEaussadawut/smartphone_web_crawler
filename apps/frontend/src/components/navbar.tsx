@@ -1,31 +1,42 @@
-import { testSearchApiTestSearchPostMutation } from "@/client/@tanstack/react-query.gen";
-import type { SearchPhone } from "@/client/types.gen";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { Github, Search, Smartphone } from "lucide-react";
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
+
+import { searchApiSearchPostMutation } from "@/client/@tanstack/react-query.gen";
+import type { SearchPhone } from "@/client/types.gen";
 
 const Navbar = () => {
-  const searchMutation = useMutation(testSearchApiTestSearchPostMutation());
+  const searchMutation = useMutation(searchApiSearchPostMutation());
 
   const [query, setQuery] = useState<SearchPhone[]>([]);
-  const [inputValue, setInputValue] = useState(""); 
+  const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const searchFunction = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value;
-    setInputValue(value); 
-    setQuery([]); 
+    const value = e.target.value;
+    setInputValue(value);
+    setQuery([]);
 
     if (value.trim() === "") {
+      setIsLoading(false);
       return;
     }
 
+    setIsLoading(true);
+
     if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
-      searchMutation.mutateAsync({ query: { keyword: value } }).then((data) => {
-        setQuery(data);
-      });
+      searchMutation
+        .mutateAsync({ query: { keyword: value } })
+        .then((data) => {
+          setQuery(data);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }, 1000);
   };
 
@@ -47,7 +58,7 @@ const Navbar = () => {
           Export CSV
         </Link>
       </div>
-    
+
       <div className="ml-auto flex items-center gap-4">
         <div className="relative">
           <span className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400">
@@ -58,12 +69,24 @@ const Navbar = () => {
             placeholder="Search..."
             value={inputValue}
             onChange={searchFunction}
-            className="border-b border-gray-400 px-3 py-2 w-80 pl-10 focus:outline-none focus:border-blue-400"
+            className="border-b border-gray-400 px-3 py-2 w-80 pl-10 focus:outline-none focus:border-white"
           />
 
-          {(inputValue.trim() !== "" && query.length > 0) && (
-            <div className="absolute left-0 top-full bg-white border w-full z-10 text-black max-h-60 overflow-y-auto">
-              {query.map((brand: any) => (
+          {isLoading && (
+            <div className="absolute left-0 top-12 bg-white border w-full z-10 text-black max-h-60 overflow-y-auto">
+              <p className="p-2">Loading...</p>
+            </div>
+          )}
+
+          {inputValue.trim() !== "" && query.length === 0 && !isLoading && (
+            <div className="absolute left-0 top-12 bg-white border w-full z-10 text-black max-h-60 overflow-y-auto">
+              <p className="p-2">Not Found</p>
+            </div>
+          )}
+
+          {inputValue.trim() !== "" && query.length > 0 && (
+            <div className="absolute left-0 top-12 bg-white border w-full z-10 text-black max-h-60 overflow-y-auto">
+              {query.map((brand: SearchPhone) => (
                 <a
                   key={brand.href}
                   href={`/device/${brand.href}`}
