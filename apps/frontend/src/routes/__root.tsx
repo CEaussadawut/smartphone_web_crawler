@@ -12,7 +12,7 @@ type Context = {
 };
 
 export const Route = createRootRouteWithContext<Context>()({
-  component: RootComponent,
+  component: RootComponent
 });
 
 function RootComponent() {

@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+
 import type { PhonePreview } from "@/client/types.gen";
 
 const PhonePreviewCard = ({ phone }: { phone: PhonePreview }) => {

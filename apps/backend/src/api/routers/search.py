@@ -21,7 +21,7 @@ async def search(keyword: str) -> dict:
 
         for href, img, name in matches:
             clean_name = re.sub(r"<.*?>", "", name).strip()  # ลบ HTML tags ออก
-            phone = SearchPhone(name=clean_name, img=img, href=href)
+            phone = SearchPhone(name=clean_name, img=img, href=f"{CRAWLER_ENDPOINT}/{href}")
 
             if phone not in all_phone:
                 all_phone.append(phone)

@@ -1,4 +1,6 @@
 import re
+
+
 from src.model import Phone, PhonePreview, PhoneSpec
 from src.utils import Regex, Pattern
 from fastapi import APIRouter, HTTPException, status
@@ -41,10 +43,13 @@ def get_phone_spec(phone_url: str):
             if not matches:
                 return None
             
+            matches = [url for url in matches if "logo-fallback.gif" not in url]
+            
             return matches
         
         spec = PhoneSpec(
-            network=find_spec(Pattern.FINDING_PHONE_NETWORK, False),
+            # network ฝากไว้ก่อน
+            network=find_spec(Pattern.FINDING_PHONE_NETWORK),
             launch=find_spec(Pattern.FINDING_PHONE_LAUNCH, False),
             body_dimensions=find_spec(Pattern.FINDING_BODY_DIMENSIONS),
             body_weight=find_spec(Pattern.FINDING_BODY_WEIGHT),
@@ -111,4 +116,3 @@ def get_phone_brand(brand: str):
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=str(error_msg),
             )
-   

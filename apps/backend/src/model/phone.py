@@ -7,9 +7,8 @@ class PhonePreview(BaseModel):
     img: str
     href: str
 
-
 class PhoneSpec(BaseModel):
-    network: list[str] | None
+    network: str | list[str] | None
     launch: list[str] | None
     body_dimensions: str | None
     body_weight: str | None

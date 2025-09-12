@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/shadcn-io/spinner";
 
 export const Route = createFileRoute("/export")({
-  component: RouteComponent,
+  component: RouteComponent
 });
 
 function exportToCSV(data: PhonePreview[]) {
@@ -46,7 +46,7 @@ function RouteComponent() {
       error: (err) => {
         console.error(err);
         return "ไม่สามารถ export csv ได้!";
-      },
+      }
     }) as string | number;
   }, [exportCSVMutation]);
 
@@ -69,7 +69,7 @@ function RouteComponent() {
         Export CSV
       </motion.h1>
 
-      <section className="my-auto flex flex-col justify-center ">
+      <section className="my-auto flex flex-col justify-center">
         <p className="text-xl">
           Output คือ <span className="underline">แสดงรายชื่อ</span>
           &ensp;ของสิ่งที่อยู่หมวดที่แต่ละกลุ่มเลือก เช่น นักแสดงไทย
@@ -83,7 +83,7 @@ function RouteComponent() {
           3นาที โปรดรอสักครู่)
         </p>
 
-        <div className="flex flex-row space-x-3">
+        <div className="pt-8 lg:p-0 flex flex-row space-x-3">
           <Button
             className="min-w-28 ml-auto cursor-pointer bg-orange-500 hover:bg-orange-400"
             onClick={

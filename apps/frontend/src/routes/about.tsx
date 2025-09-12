@@ -7,7 +7,7 @@ export const Route = createFileRoute("/about")({
 
 function About() {
   return (
-    <main className="min-h-screen container mx-auto p-12 flex flex-col gap-24">
+    <main className="min-h-screen container mx-auto p-8 lg:p-12 flex flex-col gap-12 lg:gap-24">
       <motion.h1
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -27,7 +27,7 @@ function About() {
           Expression ในการ Extract รายชื่อ.
         </p>
         <video
-          className="rounded-lg h-96 w-full object-cover"
+          className="rounded-lg h-56 lg:h-96 w-full object-cover"
           autoPlay
           loop
           muted
@@ -51,10 +51,10 @@ function About() {
           ๆ คือ
         </p>
 
-        <div className="pl-8">
+        <div className="pl-4 lg:pl-8">
           <p></p>
 
-          <ol className="pl-8 list-decimal">
+          <ol className="pl-4 lg:pl-8 list-decimal">
             <li>
               จากหน้าแรก&ensp;
               <a
