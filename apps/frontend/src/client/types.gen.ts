@@ -4,197 +4,238 @@
  * Brands
  */
 export type Brands = {
-    /**
-     * Name
-     */
-    name: string;
-    /**
-     * Href
-     */
-    href: string;
+  /**
+   * Name
+   */
+  name: string;
+  /**
+   * Href
+   */
+  href: string;
 };
 
 /**
  * HTTPValidationError
  */
 export type HttpValidationError = {
-    /**
-     * Detail
-     */
-    detail?: Array<ValidationError>;
+  /**
+   * Detail
+   */
+  detail?: Array<ValidationError>;
+};
+
+/**
+ * Phone
+ */
+export type Phone = {
+  /**
+   * Name
+   */
+  name: string;
+  spec: PhoneSpec;
 };
 
 /**
  * PhonePreview
  */
 export type PhonePreview = {
-    /**
-     * Brand
-     */
-    brand: string;
-    /**
-     * Name
-     */
-    name: string;
-    /**
-     * Img
-     */
-    img: string;
-    /**
-     * Href
-     */
-    href: string;
+  /**
+   * Brand
+   */
+  brand: string;
+  /**
+   * Name
+   */
+  name: string;
+  /**
+   * Img
+   */
+  img: string;
+  /**
+   * Href
+   */
+  href: string;
 };
 
 /**
- * SearchPhone
+ * PhoneSpec
  */
-export type SearchPhone = {
-    /**
-     * Name
-     */
-    name: string;
-    /**
-     * Img
-     */
-    img: string;
-    /**
-     * Href
-     */
-    href: string;
+export type PhoneSpec = {
+  /**
+   * Display Type
+   */
+  display_type: string | null;
+  /**
+   * Display Size
+   */
+  display_size: string | null;
+  /**
+   * Display Resolution
+   */
+  display_resolution: string | null;
+  /**
+   * Display Protection
+   */
+  display_protection: string | null;
+  /**
+   * Platform Os
+   */
+  platform_os: string | null;
+  /**
+   * Platform Chipset
+   */
+  platform_chipset: string | null;
+  /**
+   * Platform Cpu
+   */
+  platform_cpu: string | null;
+  /**
+   * Platform Gpu
+   */
+  platform_gpu: string | null;
+  /**
+   * Battery
+   */
+  battery: string | null;
 };
 
 /**
  * ValidationError
  */
 export type ValidationError = {
-    /**
-     * Location
-     */
-    loc: Array<string | number>;
-    /**
-     * Message
-     */
-    msg: string;
-    /**
-     * Error Type
-     */
-    type: string;
+  /**
+   * Location
+   */
+  loc: Array<string | number>;
+  /**
+   * Message
+   */
+  msg: string;
+  /**
+   * Error Type
+   */
+  type: string;
 };
 
 export type BrandsApiBrandsGetData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/brands';
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/brands";
 };
 
 export type BrandsApiBrandsGetResponses = {
-    /**
-     * Response Brands Api Brands Get
-     * Successful Response
-     */
-    200: Array<Brands>;
+  /**
+   * Response Brands Api Brands Get
+   * Successful Response
+   */
+  200: Array<Brands>;
 };
 
-export type BrandsApiBrandsGetResponse = BrandsApiBrandsGetResponses[keyof BrandsApiBrandsGetResponses];
+export type BrandsApiBrandsGetResponse =
+  BrandsApiBrandsGetResponses[keyof BrandsApiBrandsGetResponses];
+
+export type GetPhoneSpecApiDeviceSpecGetData = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Phone Url
+     */
+    phone_url: string;
+  };
+  url: "/api/device/spec";
+};
+
+export type GetPhoneSpecApiDeviceSpecGetErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetPhoneSpecApiDeviceSpecGetError =
+  GetPhoneSpecApiDeviceSpecGetErrors[keyof GetPhoneSpecApiDeviceSpecGetErrors];
+
+export type GetPhoneSpecApiDeviceSpecGetResponses = {
+  /**
+   * Successful Response
+   */
+  200: Phone;
+};
+
+export type GetPhoneSpecApiDeviceSpecGetResponse =
+  GetPhoneSpecApiDeviceSpecGetResponses[keyof GetPhoneSpecApiDeviceSpecGetResponses];
 
 export type GetPhoneBrandApiDeviceBrandGetData = {
-    body?: never;
-    path: {
-        /**
-         * Brand
-         */
-        brand: string;
-    };
-    query?: never;
-    url: '/api/device/{brand}';
+  body?: never;
+  path: {
+    /**
+     * Brand
+     */
+    brand: string;
+  };
+  query?: never;
+  url: "/api/device/{brand}";
 };
 
 export type GetPhoneBrandApiDeviceBrandGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
 };
 
-export type GetPhoneBrandApiDeviceBrandGetError = GetPhoneBrandApiDeviceBrandGetErrors[keyof GetPhoneBrandApiDeviceBrandGetErrors];
+export type GetPhoneBrandApiDeviceBrandGetError =
+  GetPhoneBrandApiDeviceBrandGetErrors[keyof GetPhoneBrandApiDeviceBrandGetErrors];
 
 export type GetPhoneBrandApiDeviceBrandGetResponses = {
-    /**
-     * Response Get Phone Brand Api Device  Brand  Get
-     * Successful Response
-     */
-    200: Array<PhonePreview>;
+  /**
+   * Response Get Phone Brand Api Device  Brand  Get
+   * Successful Response
+   */
+  200: Array<PhonePreview>;
 };
 
-export type GetPhoneBrandApiDeviceBrandGetResponse = GetPhoneBrandApiDeviceBrandGetResponses[keyof GetPhoneBrandApiDeviceBrandGetResponses];
+export type GetPhoneBrandApiDeviceBrandGetResponse =
+  GetPhoneBrandApiDeviceBrandGetResponses[keyof GetPhoneBrandApiDeviceBrandGetResponses];
 
 export type ExportCsvApiExportCsvPostData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/export_csv';
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/export_csv";
 };
 
 export type ExportCsvApiExportCsvPostResponses = {
-    /**
-     * Response Export Csv Api Export Csv Post
-     * Successful Response
-     */
-    200: Array<PhonePreview>;
+  /**
+   * Response Export Csv Api Export Csv Post
+   * Successful Response
+   */
+  200: Array<PhonePreview>;
 };
 
-export type ExportCsvApiExportCsvPostResponse = ExportCsvApiExportCsvPostResponses[keyof ExportCsvApiExportCsvPostResponses];
+export type ExportCsvApiExportCsvPostResponse =
+  ExportCsvApiExportCsvPostResponses[keyof ExportCsvApiExportCsvPostResponses];
 
 export type TestApiTestGetData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/test';
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/test";
 };
 
 export type TestApiTestGetResponses = {
-    /**
-     * Response Test Api Test Get
-     * Successful Response
-     */
-    200: Array<unknown>;
+  /**
+   * Response Test Api Test Get
+   * Successful Response
+   */
+  200: Array<unknown>;
 };
 
-export type TestApiTestGetResponse = TestApiTestGetResponses[keyof TestApiTestGetResponses];
-
-export type TestSearchApiTestSearchPostData = {
-    body?: never;
-    path?: never;
-    query: {
-        /**
-         * Keyword
-         */
-        keyword: string;
-    };
-    url: '/api/test_search';
-};
-
-export type TestSearchApiTestSearchPostErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type TestSearchApiTestSearchPostError = TestSearchApiTestSearchPostErrors[keyof TestSearchApiTestSearchPostErrors];
-
-export type TestSearchApiTestSearchPostResponses = {
-    /**
-     * Response Test Search Api Test Search Post
-     * Successful Response
-     */
-    200: Array<SearchPhone>;
-};
-
-export type TestSearchApiTestSearchPostResponse = TestSearchApiTestSearchPostResponses[keyof TestSearchApiTestSearchPostResponses];
+export type TestApiTestGetResponse =
+  TestApiTestGetResponses[keyof TestApiTestGetResponses];
 
 export type ClientOptions = {
-    baseURL: 'http://127.0.0.1:8000' | (string & {});
+  baseURL: "http://127.0.0.1:8000" | (string & {});
 };

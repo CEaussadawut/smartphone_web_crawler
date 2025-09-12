@@ -12,6 +12,4 @@ class Pattern:
     FINDING_PLATFORM_OS = r'<td\b[^>]*\bdata-spec\s*=\s*["]os["][^>]*>(.*?)<\/td>'
     FINDING_PLATFORM_CHIPSET = r'<td\b[^>]*\bdata-spec\s*=\s*["]chipset["][^>]*>(.*?)<\/td>'
     FINDING_PLATFORM_CPU = r'<td\b[^>]*\bdata-spec\s*=\s*["]cpu["][^>]*>(.*?)<\/td>'
-    FINDING_PLATFORM__GPU = r'<td\b[^>]*\bdata-spec\s*=\s*["]gpu["][^>]*>(.*?)<\/td>'
-
-    FIND_SEARCH_PHONE = r'<a\s+href=([^>]+)><img\s+src=([^ ]+)[^>]*><strong>(.*?)</strong>'
+    FINDING_PLATFORM_GPU = r'<td\b[^>]*\bdata-spec\s*=\s*["]gpu["][^>]*>(.*?)<\/td>'

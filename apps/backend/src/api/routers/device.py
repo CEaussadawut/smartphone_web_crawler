@@ -1,5 +1,5 @@
 import re
-from src.model import PhonePreview
+from src.model import Phone, PhonePreview, PhoneSpec
 from src.utils import Regex, Pattern
 from fastapi import APIRouter, HTTPException, status
 
@@ -10,8 +10,43 @@ router = APIRouter(prefix="/api")
 
 cedt_regex = Regex()
 
+@router.get("/device/spec", status_code=status.HTTP_200_OK, response_model=Phone)
+def get_phone_spec(phone_url: str):
+    try:
+        # Extract the path from the full URL
+        url_path = phone_url.replace(CRAWLER_ENDPOINT + '/', "")
+
+        # Fetch the HTML content once
+        # The find method caches the content, so subsequent calls with the same url_path will be fast
+        phone_name_list = cedt_regex.find(r'<h1 class="specs-phone-name-title">(.+?)</h1>', url_path)
+        phone_name = phone_name_list[0] if phone_name_list else "Unknown"
+
+        def find_spec(pattern):
+            matches = cedt_regex.find(pattern, url_path)
+            return matches[0] if matches else None
+
+        spec = PhoneSpec(
+            display_type=find_spec(Pattern.FINDING_DISPLAY_TYPE),
+            display_size=find_spec(Pattern.FINDING_DISPLAY_SIZE),
+            display_resolution=find_spec(Pattern.FINDING_DISPLAY_RESOLUTION),
+            display_protection=find_spec(Pattern.FINDING_DISPLAY_PROTECTION),
+            platform_os=find_spec(Pattern.FINDING_PLATFORM_OS),
+            platform_chipset=find_spec(Pattern.FINDING_PLATFORM_CHIPSET),
+            platform_cpu=find_spec(Pattern.FINDING_PLATFORM_CPU),
+            platform_gpu=find_spec(Pattern.FINDING_PLATFORM_GPU),
+            battery=find_spec(Pattern.FINDING_BATTERY)
+        )
+
+        return Phone(name=phone_name, spec=spec)
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e),
+        )
+
 @router.get("/device/{brand}", status_code=status.HTTP_200_OK,response_model=list[PhonePreview])
-async def get_phone_brand(brand: str):
+def get_phone_brand(brand: str):
     try:
         all_phone_matches = cedt_regex.find(Pattern.FINDING_ALL_PHONE_BRAND, brand)
 
@@ -30,6 +65,6 @@ async def get_phone_brand(brand: str):
     except Exception as error_msg:
         raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=error_msg,
+                detail=str(error_msg),
             )
    
