@@ -137,9 +137,9 @@ const Navbar = () => {
                 <MenubarItem>About</MenubarItem>
               </Link>
               <MenubarSeparator />
-              <MenubarItem>
-                <Link to="/export">Export CSV</Link>
-              </MenubarItem>
+              <Link to="/export">
+                <MenubarItem>Export CSV</MenubarItem>
+              </Link>
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
