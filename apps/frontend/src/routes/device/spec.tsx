@@ -8,27 +8,27 @@ import LoadingComponent from "@/components/loading";
 import {
   Carousel,
   CarouselContent,
-  CarouselItem
+  CarouselItem,
 } from "@/components/ui/carousel";
 
 export const Route = createFileRoute("/device/spec")({
   validateSearch: (search: Record<string, unknown>): { phone_url: string } => {
     // validate and parse search params
     return {
-      phone_url: search.phone_url as string
+      phone_url: search.phone_url as string,
     };
   },
   loaderDeps: ({ search: { phone_url } }) => ({ phone_url }),
   loader: async ({ context: { queryClient }, deps }) => {
     await queryClient.ensureQueryData(
       getPhoneSpecApiDeviceSpecGetOptions({
-        query: { phone_url: deps.phone_url }
+        query: { phone_url: deps.phone_url },
       })
     );
   },
   pendingComponent: () => <LoadingComponent />,
   errorComponent: ({ error }) => `An error has occurred: ${error.message}`,
-  component: RouteComponent
+  component: RouteComponent,
 });
 
 function RouteComponent() {
@@ -57,10 +57,10 @@ function RouteComponent() {
     <div className="container mx-auto p-4">
       <motion.h1
         initial={{
-          x: -100
+          x: -100,
         }}
         animate={{
-          x: 0
+          x: 0,
         }}
         className="text-3xl"
       >
