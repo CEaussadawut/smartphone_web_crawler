@@ -3,7 +3,7 @@ import random
 import asyncio
 from fastapi import APIRouter, HTTPException, status
 
-from src.config.crawler import CRAWLER_ENDPOINT
+from src.config.crawler import CRAWLER_MOBILE_ENDPOINT
 from src.model import SearchPhone
 from src.utils import Regex, Pattern
 
@@ -15,13 +15,13 @@ cedt_regex = Regex()
 async def search(keyword: str) -> dict:
     try:
         await asyncio.sleep(random.uniform(0.1, 0.25))
-        matches = cedt_regex.find(Pattern.FIND_SEARCH_PHONE, f"results.php3?sFreeText={keyword}", mobile=False)
+        matches = cedt_regex.find(Pattern.FIND_SEARCH_PHONE, f"results.php3?sQuickSearch=yes&sName={keyword}")
 
         all_phone: list[SearchPhone] = []
 
         for href, img, name in matches:
             clean_name = re.sub(r"<.*?>", "", name).strip()  # ลบ HTML tags ออก
-            phone = SearchPhone(name=clean_name, img=img, href=f"{CRAWLER_ENDPOINT}/{href}")
+            phone = SearchPhone(name=clean_name, img=img, href=f"{CRAWLER_MOBILE_ENDPOINT}/{href}")
 
             if phone not in all_phone:
                 all_phone.append(phone)
