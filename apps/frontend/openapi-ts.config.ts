@@ -6,7 +6,6 @@ export default defineConfig({
   plugins: [
     "@hey-api/typescript",
     "@hey-api/client-axios",
-    "@hey-api/transformers",
     "@tanstack/react-query",
   ],
 });

@@ -1,31 +1,39 @@
-# Stage 1: Build the React frontend
-FROM oven/bun:1-alpine AS frontend-builder
+# Stage 1: Combined builder for backend and frontend
+FROM python:3.13-alpine AS builder
 
-WORKDIR /app/frontend
+# Install dependencies including bash for the bun installer and libstdc++ for bun itself
+RUN apk add --no-cache curl unzip bash libstdc++
 
-COPY apps/frontend/package.json apps/frontend/bun.lock ./
-RUN bun install
+# Install Bun
+RUN curl -fsSL https://bun.sh/install | bash
 
-COPY apps/frontend/ .
-RUN bun run build
-
-# Stage 2: Build the FastAPI backend
-FROM python:3.13-alpine AS backend-builder
+# Add Bun to the PATH for subsequent RUN commands
+ENV PATH="/root/.bun/bin:$PATH"
 
 WORKDIR /app
 
-# Install Python dependencies
+# Copy backend code and install Python dependencies
 COPY apps/backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy backend application code
 COPY apps/backend/src ./src
 
-# Copy the built frontend static files from the frontend-builder stage
-COPY --from=frontend-builder /app/frontend/dist ./src/static
+# Copy frontend code and install Bun dependencies
+COPY apps/frontend /app/frontend
+RUN cd /app/frontend && bun install
 
+# Generate OpenAPI client and build the frontend
+# This requires the backend to be running
+RUN <<EOF
+set -e
+uvicorn src.main:app --host 0.0.0.0 --port 8000 &
+sleep 5 # Give the server a moment to start
+cd /app/frontend
+bun run openapi-ts
+bun run build
+kill %1
+EOF
 
-# Stage 3: Final runtime image
+# Stage 2: Final runtime image
 FROM python:3.13-alpine AS runtime
 
 WORKDIR /app
@@ -33,12 +41,13 @@ WORKDIR /app
 # Set environment to production
 ENV ENVIRONMENT=production
 
-# Copy Python dependencies from backend-builder
-COPY --from=backend-builder /usr/local/lib/python3.13/site-packages /usr/local/lib/python3.13/site-packages
-COPY --from=backend-builder /usr/local/bin /usr/local/bin
+# Copy Python dependencies from the builder stage
+COPY --from=builder /usr/local/lib/python3.13/site-packages /usr/local/lib/python3.13/site-packages
+COPY --from=builder /usr/local/bin /usr/local/bin
 
-# Copy the application code and static files from backend-builder
-COPY --from=backend-builder /app .
+# Copy the application code and the built frontend static files from the builder stage
+COPY --from=builder /app/src ./src
+COPY --from=builder /app/frontend/dist ./src/static
 
 # Expose the port FastAPI runs on
 EXPOSE 8000
