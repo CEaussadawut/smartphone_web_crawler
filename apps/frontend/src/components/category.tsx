@@ -20,7 +20,7 @@ export default function Category({
     getPhoneBrandApiDeviceBrandGetOptions({ path: { brand: href } })
   );
 
-  const phones = phonesQueried.data;
+  const phones = phonesQueried.data.phones;
 
   const shuffle = (array: PhonePreview[]) => {
     const arr = [...array];

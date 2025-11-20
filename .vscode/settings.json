@@ -4,7 +4,8 @@
     "**/__pycache__": true,
     "**/node_modules": true,
     "**/.tanstack": true,
-    "**/.turbo": true
+    "**/.turbo": true,
+    "**/venv": true
   },
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always"

@@ -1,7 +1,7 @@
 import re
 
 
-from src.model import Phone, PhonePreview, PhoneSpec
+from src.model import Phone, PhonePreview, PhoneSpec, PaginationModel, AllPhoneBrand
 from src.utils import Regex, Pattern
 from fastapi import APIRouter, HTTPException, status
 
@@ -94,10 +94,17 @@ def get_phone_spec(phone_url: str):
             detail=str(e),
         )
 
-@router.get("/device/{brand}", status_code=status.HTTP_200_OK,response_model=list[PhonePreview])
+@router.get("/device/{brand}", status_code=status.HTTP_200_OK, response_model=AllPhoneBrand)
 def get_phone_brand(brand: str):
     try:
         all_phone_matches = cedt_regex.find(Pattern.FINDING_ALL_PHONE_BRAND, brand)
+        find_pagination = cedt_regex.find_nested_tags(
+            Pattern.FINDING_PAGINATION_BLOCK, 
+            Pattern.FINDING_PAGINATION_LINKS,
+            brand, 
+            mobile=False,
+            cache=False
+            )
 
         all_phone = []
 
@@ -110,7 +117,15 @@ def get_phone_brand(brand: str):
             if phone not in all_phone:
                 all_phone.append(phone)
         
-        return all_phone
+        pagination = []
+
+        for href, page, strong_text in find_pagination[0]:
+            if strong_text:
+                pagination.append(PaginationModel(page=strong_text, href=None))
+            else:
+                pagination.append(PaginationModel(page=page, href=href))
+        
+        return AllPhoneBrand(phones=all_phone, pagination=pagination)
     except Exception as error_msg:
         raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

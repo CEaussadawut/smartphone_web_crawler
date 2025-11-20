@@ -54,7 +54,7 @@ bun run dev
 cd apps/frontend && bun run openapi-ts
 ```
 
-ปล. package ทั้งหมดจะลงไว้ใน folder โปรเจคนี้ ไม่ต้องห่วง backdoor เพราะโดนอยู่แล้ว (หยอก)
+ปล. package ทั้งหมดจะลงไว้ใน folder โปรเจคนี้
 
 ## Deployment (Production with Docker)
 

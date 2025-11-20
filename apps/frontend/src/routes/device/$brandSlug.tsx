@@ -28,7 +28,8 @@ function RouteComponent() {
   const phonesQueried = useSuspenseQuery(
     getPhoneBrandApiDeviceBrandGetOptions({ path: { brand: brandSlug } })
   );
-  const phones = phonesQueried.data;
+
+  const allPhone = phonesQueried.data;
 
   return (
     <div className="container mx-auto p-4 flex flex-col gap-8">
@@ -45,7 +46,7 @@ function RouteComponent() {
       </motion.h1>
 
       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 auto-rows-fr">
-        {phones.map((phone, i) => (
+        {allPhone.phones.map((phone, i) => (
           <Suspense
             key={i}
             fallback={<Skeleton className="h-76 p-4 w-auto rounded-sm" />}
@@ -53,6 +54,24 @@ function RouteComponent() {
             <PhonePreviewCard phone={phone} />
           </Suspense>
         ))}
+      </div>
+
+      <div className="flex gap-2 justify-center">
+        {allPhone.pagination.map((value, i) => {
+          if (value.href == null) {
+            return (
+              <a key={i}>
+                <span className="text-orange-500">{value.page}</span>
+              </a>
+            );
+          }
+
+          return (
+            <a href={value.href} key={i}>
+              <span>{value.page}</span>
+            </a>
+          );
+        })}
       </div>
     </div>
   );
