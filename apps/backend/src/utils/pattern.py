@@ -5,6 +5,10 @@ class Pattern:
     # All Phone Brand
     FINDING_ALL_PHONE_BRAND = r'<li>\s*<a href="([^"]*\.php)"><img\s+src="?([^" >]+)"?[^>]*>\s*(.*?)<\/a><\/li>'
 
+    # Pagination
+    FINDING_PAGINATION_BLOCK = r'<div class="nav-pages">(.*?)</div>'
+    FINDING_PAGINATION_LINKS = r'(?:<a[^>]*href="([^"]+)"[^>]*>(.*?)</a>)|(?:<strong>(.*?)</strong>)'
+
     # Network
     FINDING_PHONE_NETWORK = r'(?:<tr class="tr-toggle"(?: data-spec-optional="")?[^>]*>[\s\S]*?<td class="nfo"[^>]*>(?:<a [^>]*>)?|<td class="nfo"[^>]*data-spec="nettech"[^>]*>(?:<a [^>]*>)?)([\s\S]*?)(?:<\/a>)?<\/td>'
 

@@ -1,11 +1,18 @@
 from pydantic import BaseModel
 
-
 class PhonePreview(BaseModel):
     brand: str
     name: str
     img: str
     href: str
+
+class PaginationModel(BaseModel):
+    page: str
+    href: str | None
+
+class AllPhoneBrand(BaseModel):
+    phones: list[PhonePreview]
+    pagination: list[PaginationModel]
 
 class PhoneSpec(BaseModel):
     network: str | list[str] | None
